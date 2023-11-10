@@ -1,51 +1,40 @@
 #include<iostream>
-#include<string>
-#include<cmath>
-#include<algorithm>
 #include<vector>
-#include<iterator>
-#include<map>
-#include<set>
-#include<unordered_set>
-#include <stack>
-using namespace std;
+#include<algorithm>
+using namespace  std;
 
-int main() {
-
+int main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
 
     int n;
     cin>>n;
-
-    string result="";
-    vector<int>v;
+    string str = "";
+    vector<int> v;
+    vector<int> s;
     for(int i=0; i<n; i++){
-        int x;
-        cin>>x;
-        v.emplace_back(x);
+        int tmp; cin>>tmp;
+        v.push_back(tmp);
     }
-    vector<int>num;
     int j=0;
     for(int i=1; i<=n; i++){
-        num.emplace_back(i);
-        result+='+';
-        while(!num.empty()&&num.back()==v[j]){
-            num.pop_back();
-            result+='-';
+        s.push_back(i);
+        str+="+";
+        while(!s.empty()&&s.back()==v[j]){
             j++;
+            s.pop_back();
+            str+="-";
         }
-
     }
-    if(!num.empty()){
+
+    if(!s.empty()){
         cout<<"NO\n";
     }
     else{
-        for(int i=0; i<result.length(); i++){
-            cout<<result[i]<<'\n';
+        for(char i : str){
+            cout<<i<<'\n';
         }
     }
-
     return 0;
 }
