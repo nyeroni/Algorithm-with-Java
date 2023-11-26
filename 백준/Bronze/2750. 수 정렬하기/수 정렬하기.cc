@@ -1,21 +1,28 @@
 #include<iostream>
-#include<string>
-#include<cmath>
+#include "queue"
 #include<algorithm>
-using namespace std;
+using namespace  std;
 
-int main()
-{
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+
     int N;
     cin>>N;
-    int arr[1000];
+
+    priority_queue<int, vector<int>, greater<int>> pq;
     for(int i=0; i<N; i++){
-        cin>>arr[i];
+        int tmp;
+        cin>>tmp;
+        pq.push(tmp);
     }
-    sort(arr, arr+N);
+
     for(int i=0; i<N; i++){
-        cout<<arr[i]<<endl;
+        cout<<pq.top()<<'\n';
+        pq.pop();
     }
+
     return 0;
 }
-
