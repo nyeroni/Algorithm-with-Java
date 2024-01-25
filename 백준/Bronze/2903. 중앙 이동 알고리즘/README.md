@@ -10,6 +10,10 @@
 
 수학
 
+### 제출 일자
+
+2024년 1월 25일 23:18:33
+
 ### 문제 설명
 
 <p>상근이는 친구들과 함께 SF영화를 찍으려고 한다. 이 영화는 외계 지형이 필요하다. 실제로 우주선을 타고 외계 행성에 가서 촬영을 할 수 없기 때문에, 컴퓨터 그래픽으로 CG처리를 하려고 한다.</p>
@@ -30,9 +34,9 @@
 <table class="table table-bordered td-center">
 	<tbody>
 		<tr>
-			<td><img alt="" src="" style="width: 214px; height: 213px;"></td>
-			<td><img alt="" src="" style="width: 212px; height: 213px;"></td>
-			<td><img alt="" src="" style="width: 212px; height: 213px;"></td>
+			<td><img alt="" src="https://upload.acmicpc.net/5e446f0f-613c-4ce0-a626-6b0c2729ed1e/-/preview/" style="width: 214px; height: 213px;"></td>
+			<td><img alt="" src="https://upload.acmicpc.net/65c1bcf1-7d8a-463b-91df-d6cabcc2ceae/-/preview/" style="width: 212px; height: 213px;"></td>
+			<td><img alt="" src="https://upload.acmicpc.net/27b99467-cfdf-4ce3-a0b0-2897747edcf9/-/preview/" style="width: 212px; height: 213px;"></td>
 		</tr>
 		<tr>
 			<td>초기 상태 - 점 4개</td>
