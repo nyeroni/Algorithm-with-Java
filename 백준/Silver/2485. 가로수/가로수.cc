@@ -16,9 +16,6 @@ int GCD(int a, int b){
     }
     return b;
 }
-int LCM(int a, int b){
-    return a*b/GCD(a,b);
-}
 int main() {
 
     ios::sync_with_stdio(false);
