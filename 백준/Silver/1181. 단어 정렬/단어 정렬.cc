@@ -4,9 +4,7 @@
 #include<algorithm>
 using namespace std;
 
-bool cmp(int a, int b){
-    return a>b;
-}
+
 bool compare(string a, string b){
     if(a.length()==b.length()){
         return a<b;
