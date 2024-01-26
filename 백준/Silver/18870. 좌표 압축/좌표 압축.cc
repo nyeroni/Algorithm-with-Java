@@ -26,7 +26,7 @@ int main()
     }
     vector <int> tmp=v;
     sort(tmp.begin(), tmp.end());
-    tmp.resize(unique(tmp.begin(), tmp.end())-tmp.begin());
+    tmp.erase(unique(tmp.begin(), tmp.end()), tmp.end());
 
     for(auto&& x : v){
         cout<<lower_bound(tmp.begin(), tmp.end(), x)-tmp.begin()<<' ';
