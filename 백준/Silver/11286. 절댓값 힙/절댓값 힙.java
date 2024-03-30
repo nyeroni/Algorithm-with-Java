@@ -12,10 +12,8 @@ public class Main {
 		PriorityQueue<Integer> pq = new PriorityQueue<Integer>(new Comparator<Integer>() {
 			@Override
 			public int compare(Integer o1, Integer o2) {
-				//절대값 기준으로 앞 값이 더 크다면 자리를 바꿔준다.
 				if(Math.abs(o1) > Math.abs(o2)) {
 					return Math.abs(o1) - Math.abs(o2);
-				//절대값 기준으로 두 값이 같다면 음수를 앞으로 보내준다.
 				}else if(Math.abs(o1) == Math.abs(o2)) {
 					return o1 - o2;
 				}else {
