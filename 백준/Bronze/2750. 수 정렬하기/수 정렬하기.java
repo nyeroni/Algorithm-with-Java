@@ -1,23 +1,21 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int N = scanner.nextInt();
-        int arr[] = new int[N];
-        for (int i = 0; i < N; i++) {
-            arr[i] = scanner.nextInt();
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int n = Integer.parseInt(br.readLine()); //정수 개수
+        int[] arr = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(br.readLine()); 
         }
-        for (int i = 0; i < N; i++) {
-            for(int j=0; j<N; j++){
-                if (arr[i] < arr[j]) {
-                    int tmp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = tmp;
-                }
-            }
-        }
-        for (int i = 0; i < N; i++) {
+        
+        Arrays.sort(arr); 
+        
+        for (int i = 0; i < n; i++) {
             System.out.println(arr[i]);
         }
     }
