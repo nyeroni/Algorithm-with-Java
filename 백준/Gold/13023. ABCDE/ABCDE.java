@@ -1,31 +1,28 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int N;
-    public static ArrayList<Integer>[] A;
-    public static boolean[] visited;
+    public static boolean []visited;
+    public static ArrayList<Integer> []A;
     public static boolean arrive;
-    public static void main(String []args) throws IOException {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        N = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         A = new ArrayList[N];
         visited = new boolean[N];
-        arrive = false;
+
         for(int i=0; i<N; i++) {
             A[i] = new ArrayList<>();
         }
         for(int i=0; i<M; i++) {
             st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            A[a].add(b);
-            A[b].add(a);
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            A[s].add(e);
+            A[e].add(s);
         }
         for(int i=0; i<N; i++) {
             DFS(i, 1);
@@ -33,10 +30,9 @@ public class Main {
                 break;
             }
         }
-        if(arrive){
+        if(arrive) {
             System.out.println("1");
-        }
-        else {
+        } else {
             System.out.println("0");
         }
     }
