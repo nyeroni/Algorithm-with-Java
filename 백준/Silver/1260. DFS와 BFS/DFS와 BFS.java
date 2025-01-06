@@ -1,65 +1,68 @@
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
-
-    static int n,m,v,s,e;
     static ArrayList<Integer>[] A;
     static boolean[] visited;
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        m = sc.nextInt();
-        v = sc.nextInt();
-        A = new ArrayList[n+1];
-
-        for (int i=1; i<=n; i++){
+    static int N;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int V = Integer.parseInt(st.nextToken());
+        A = new ArrayList[N+1];
+        for(int i=1; i<=N; i++) {
             A[i] = new ArrayList<Integer>();
         }
-
-        for (int i=1; i<=m; i++){
-            s = sc.nextInt();
-            e = sc.nextInt();
+        for(int i=0; i<M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
             A[s].add(e);
             A[e].add(s);
         }
-
-        for (int i=1; i<=n; i++){
+        for(int i=1; i<=N; i++) {
             Collections.sort(A[i]);
         }
-
-        visited = new boolean[n+1];
-        dfs(v);
+        visited = new boolean[N+1];
+        DFS(V, 1);
         System.out.println();
-
-        visited = new boolean[n+1];
-        bfs(v);
+        visited = new boolean[N+1];
+        BFS(V);
         System.out.println();
-
     }
-
-    public static void dfs(int node){
-        System.out.print(node +" ");
-        visited[node] = true;
-        for (int i : A[node]){
-            if(!visited[i]){
-                dfs(i);
+    public static void DFS(int start, int depth) {
+        if(depth == N && !visited[start]) {
+            System.out.print(start);
+            return;
+        }
+        System.out.print(start + " ");
+        visited[start] = true;
+        for(int i : A[start]) {
+            if(!visited[i]) {
+                visited[i] = true;
+                DFS(i, depth+1);
             }
         }
     }
+    public static void BFS(int start) {
+        Queue<Integer> queue = new LinkedList<Integer>();
+        queue.add(start);
+        visited[start] = true;
 
-    public static void bfs(int node){
-
-        Queue<Integer> q = new LinkedList<>();
-        q.add(node);
-        visited[node] = true;
-
-        while(!q.isEmpty()){
-            int now_node = q.poll();
-            System.out.print(now_node + " ");
-            for (int i:A[now_node]){
-                if(!visited[i]){
+        while(!queue.isEmpty()) {
+            int cur = queue.poll();
+            System.out.print(cur + " ");
+            for(int i : A[cur]) {
+                if(!visited[i]) {
                     visited[i] = true;
-                    q.add(i);
+                    queue.add(i);
                 }
             }
         }
