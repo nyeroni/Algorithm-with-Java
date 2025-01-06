@@ -31,23 +31,19 @@ public class Main {
             Collections.sort(A[i]);
         }
         visited = new boolean[N+1];
-        DFS(V, 1);
+        DFS(V);
         System.out.println();
         visited = new boolean[N+1];
         BFS(V);
         System.out.println();
     }
-    public static void DFS(int start, int depth) {
-        if(depth == N && !visited[start]) {
-            System.out.print(start);
-            return;
-        }
+    public static void DFS(int start) {
         System.out.print(start + " ");
         visited[start] = true;
         for(int i : A[start]) {
             if(!visited[i]) {
                 visited[i] = true;
-                DFS(i, depth+1);
+                DFS(i);
             }
         }
     }
