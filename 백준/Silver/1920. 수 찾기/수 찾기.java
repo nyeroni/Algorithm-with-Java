@@ -1,43 +1,44 @@
+import java.io.*;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-	static Scanner scan=new Scanner(System.in);
-	static StringBuilder sb=new StringBuilder();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int []A = new int[N];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) {
+            A[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(A);
+        st = new StringTokenizer(br.readLine());
+        int M = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < M; i++){
+            boolean find = false;
+            int num = Integer.parseInt(st.nextToken());
+            int start = 0;
+            int end = A.length - 1;
+            while(start <= end){
+                int midi = (start + end) / 2;
+                int midA = A[midi];
+                if(midA > num) {
+                    end = midi - 1;
+                } else if(midA < num) {
+                    start = midi + 1;
+                } else {
+                    find = true;
+                    break;
+                }
+            }
+            if (find) {
+                System.out.println("1");
+            } else {
+                System.out.println("0");
+            }
 
-	public static void main(String[] args) {
-		int n=scan.nextInt();
-		int[] arr=new int [n];
-		for(int i=0;i<n;i++) {
-			arr[i]=scan.nextInt();
-		}
-		Arrays.sort(arr);
-		
-		int m=scan.nextInt();	
-		int [] arr2=new int[m];
-		for(int i=0;i<m;i++) {
-			arr2[i]=scan.nextInt();		
-		}
-
-		for(int i=0;i<m;i++) {
-			boolean flag=false;
-			int start=0;
-			int end=n-1;
-			while(start<=end) {
-				if(flag)break;
-				int mid=(start+end)/2;
-				if(arr2[i]>arr[mid]) {
-					start=mid+1;
-				}else if(arr2[i]<arr[mid]) {
-					end=mid-1;
-				}else flag=true;
-			}
-			if(flag)sb.append("1\n");
-			else sb.append("0\n");
-		}
-		
-		
-		
-		System.out.print(sb);
-	}
+        }
+    }
 }
