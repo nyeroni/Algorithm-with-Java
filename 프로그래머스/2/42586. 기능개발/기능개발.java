@@ -1,30 +1,29 @@
 import java.util.*;
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        int[] answer = {0};
-        Map<Integer, Integer> map = new LinkedHashMap<>();
-        List<Integer> tmp = new ArrayList<>();
-        for(int i=0; i<progresses.length; i++) {
-            int days = 0;
-            if((100 - progresses[i])%speeds[i] == 0) {
-                days = (100 - progresses[i])/speeds[i];
-
-            } else {
-                days = (100 - progresses[i])/speeds[i] + 1;
-
-            }
+        int []answer;
         
-            if(!map.isEmpty() && tmp.get(tmp.size()-1) > days) {
-                days = tmp.get(tmp.size()-1);
-            }   
-            tmp.add(days);
-            map.put(days, map.getOrDefault(days, 0) + 1);
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i=0; i<progresses.length; i++) {
+            int n = (int)Math.ceil((100.0 - progresses[i])/speeds[i]);
+            queue.offer(n);
         }
-        List<Integer> ansTmp = new ArrayList<>();
-        for(Integer value : map.values()) {
-            ansTmp.add(value);
+        List<Integer> tmp = new ArrayList<>();
+        while(!queue.isEmpty()) {
+            int m = queue.poll();
+            int count = 1;
+            while(!queue.isEmpty()) {
+                int k = queue.peek();
+                if(k <= m) {
+                    queue.poll();
+                    count ++;
+                } else {
+                    break;
+                }
+            }
+            tmp.add(count);
         }
-        answer = ansTmp.stream().mapToInt(i->i).toArray();
+        answer = tmp.stream().mapToInt(i->i).toArray();
         return answer;
     }
 }
