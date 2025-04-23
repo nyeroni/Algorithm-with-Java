@@ -1,23 +1,25 @@
 import java.util.*;
 class Solution {
     public String solution(String number, int k) {
-        StringBuilder answer = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        
         Stack<Character> stack = new Stack<>();
         int cnt = 0;
+        
         for(char c : number.toCharArray()) {
             while(!stack.isEmpty() && stack.peek() < c && cnt < k) {
-                cnt++;
+                cnt ++;
                 stack.pop();
             }
             stack.push(c);
         }
-        while(cnt<k) {
+        while(cnt < k) {
             stack.pop();
-            cnt++;
+            cnt ++;
         }
         while(!stack.isEmpty()) {
-            answer.append(stack.pop());
+            sb.append(stack.pop());
         }
-        return answer.reverse().toString();
+        return sb.reverse().toString();
     }
 }
