@@ -1,25 +1,20 @@
 class Solution {
     public int solution(int[][] sizes) {
-        int answer = 1;
-        int max = -1;
-        int k=-1;
+        int answer = 0;
+        
         for(int i=0; i<sizes.length; i++) {
-            if(max < Math.max(sizes[i][0], sizes[i][1])) {
-                max = Math.max(sizes[i][0], sizes[i][1]);
-                k = i;
+            if(sizes[i][0] > sizes[i][1]) {
+                int tmp = sizes[i][0];
+                sizes[i][0] = sizes[i][1];
+                sizes[i][1] = tmp;
             }
         }
-        answer *= max;
-        System.out.println("max = " + max);
-        max = -1;
+        int max1 = -1, max2 = -1;
         for(int i=0; i<sizes.length; i++) {
-            if(max < Math.min(sizes[i][0], sizes[i][1])) {
-                max = Math.min(sizes[i][0], sizes[i][1]);
-                System.out.println("max = " + max);
-                k = i;
-            }
+            max1 = Math.max(max1, sizes[i][0]);
+            max2 = Math.max(max2, sizes[i][1]);
         }
-        answer *= max;
+        answer = max1 * max2;
         return answer;
     }
 }
