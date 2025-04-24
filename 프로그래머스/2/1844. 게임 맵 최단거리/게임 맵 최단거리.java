@@ -2,36 +2,34 @@ import java.util.*;
 
 class Solution {
     public int solution(int[][] maps) {
-        int rows = maps.length;
-        int cols = maps[0].length;
+        int []di = {-1, 1, 0, 0};
+        int []dj = {0, 0, -1, 1};
         
-        int[] di = {-1, 1, 0, 0};
-        int[] dj = {0, 0, -1, 1};
-        
-        boolean[][] visited = new boolean[rows][cols];
+        int row = maps.length;
+        int col = maps[0].length;
         
         Queue<int[]> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[row][col];
         
-        queue.add(new int[] {0, 0, 1});
+        queue.offer(new int[]{0, 0, 1});
         visited[0][0] = true;
         
         while(!queue.isEmpty()) {
-            int [] current = queue.poll();
+            int []current = queue.poll();
             int i = current[0];
             int j = current[1];
             int dist = current[2];
             
-            if(i==rows - 1 && j==cols-1) {
+            if(i == row-1 && j == col-1) {
                 return dist;
             }
-            for(int d=0; d<4; d++) {
-                int ni = i + di[d];
-                int nj = j + dj[d];
-            
-                if(ni >= 0 && ni < rows && nj >= 0 && nj < cols) {
-                    if(maps[ni][nj] == 1 && !visited[ni][nj]) {
+            for(int k=0; k<4; k++) {
+                int ni = di[k] + i;
+                int nj = dj[k] + j;
+                if(ni >= 0 && ni < row && nj >= 0 && nj < col) {
+                    if(!visited[ni][nj] && maps[ni][nj] == 1) {
                         visited[ni][nj] = true;
-                        queue.add(new int[] {ni, nj, dist+1});
+                        queue.offer(new int[]{ni, nj, dist + 1});
                     }
                 }
             }
