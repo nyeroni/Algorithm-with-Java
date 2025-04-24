@@ -4,17 +4,19 @@ class Solution {
     public int solution(String word) {
         int answer = 0;
         List<String> words = new ArrayList<>();
-        makeWords("", words);
-        return words.indexOf(word);
+        makeWord("", words);
+        answer = words.indexOf(word);
+        return answer;
     }
-    public void makeWords(String word, List<String> words) {
-        words.add(word);
-        if(word.length() == 5) {
-            return;
-        }
-        String [] w = {"A", "E", "I", "O", "U"};
-        for(String c : w) {
-            makeWords(word+c, words);
+    public void makeWord(String w, List<String> words) {
+        words.add(w);
+        String[] str = {"A", "E", "I", "O", "U"};
+       if(w.length() == 5)
+       {
+           return;
+       }        
+        for(int i=0; i<str.length; i++) {
+            makeWord(w + str[i], words);
         }
     }
 }
