@@ -2,21 +2,18 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] array, int[][] commands) {
-        int[] answer = new int[commands.length];
-        for(int h=0; h<commands.length; h++) {
-            int i = commands[h][0];
-            int j = commands[h][1];
-            int k = commands[h][2];
-            int num = j-i+1;
-            int []newArr = new int[num];
-            int f=0;
-            for(int g=i-1; g<j; g++) {
-                newArr[f] = array[g] ;
-                f++;
+        int [] ans = new int[commands.length];
+        for(int i=0; i<commands.length; i++) {
+            int a = commands[i][0];
+            int b = commands[i][1];
+            int []tmp = new int[b - a + 1];
+            int k=0;
+            for(int j=a-1; j<b; j++) {
+                tmp[k++] = array[j];
             }
-            Arrays.sort(newArr);
-            answer[h] = newArr[k-1];
+            Arrays.sort(tmp);
+            ans[i] = tmp[commands[i][2]-1];
         }
-        return answer;
+        return ans;
     }
 }
