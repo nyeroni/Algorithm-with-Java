@@ -3,26 +3,23 @@ class Solution {
     public int solution(int[] citations) {
         int answer = -1;
         Arrays.sort(citations);
-
-        // [1, 10, 11] -> 2
-        // 3 - 1
-        int j=0;
+        //0 1 3 5 6
+        int h = 0;
+        int cnt = 0;
         while(true) {
-            int cnt = 0;
-            for(int i=0; i<citations.length; i++) {   
-                if(citations[i] >= j) {
-                    cnt++;
+            cnt = 0;
+            for(int i=0; i<citations.length; i++) {
+                if(citations[i] >= h) {
+                    cnt ++;
                 }
             }
-            if(cnt < j) {
-                answer = j-1;
+            if(cnt < h) {
+                answer = h-1;
                 break;
             }
-            j++;
+            h++;
         }
-        if(answer == -1) {
-            answer = citations.length;
-        }
+        
         return answer;
     }
 }
