@@ -4,17 +4,19 @@ class Solution {
     public String solution(int[] numbers) {
         StringBuilder sb = new StringBuilder();
         
+        String[] str = new String[numbers.length];
+        int j=0;
+        for(int i : numbers) {
+            str[j++] = String.valueOf(i);
+        }
         
-        String[] str = Arrays.stream(numbers)
-            .mapToObj(String::valueOf)
-            .toArray(String[]::new);
-        
-        Arrays.sort(str, (a, b) -> (b+a).compareTo(a+b));
-        for(String num : str) {
-            sb.append(num);
+        Arrays.sort(str, (a, b) -> 
+            (b + a).compareTo(a + b)
+        );
+        for(String s : str) {
+            sb.append(s);
         }
         if(sb.toString().charAt(0) == '0') return "0";
-        else return sb.toString();
-        
+        return sb.toString();
     }
 }
