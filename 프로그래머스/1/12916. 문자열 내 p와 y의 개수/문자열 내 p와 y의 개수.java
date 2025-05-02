@@ -1,22 +1,14 @@
 class Solution {
     boolean solution(String s) {
         boolean answer = true;
-        int p=0, y=0;
+        int num1 = 0;
+        int num2 = 0;
         for(int i=0; i<s.length(); i++) {
-            if(s.charAt(i) == 'p' || s.charAt(i) == 'P') {
-                p++;
-            }
-            if(s.charAt(i) == 'y' || s.charAt(i) == 'Y') {
-                y++;
-            } 
+            char c = s.charAt(i);
+            if(c == 'p' || c == 'P') num1 ++;
+            else if(c == 'y' || c == 'Y') num2 ++;
         }
-        if(p!=y) {
-            answer = false;
-        } 
-        if(p==0 && y==0) {
-            answer = true;
-        } 
-
+        if(num1 != num2) answer = false;
         return answer;
     }
 }
