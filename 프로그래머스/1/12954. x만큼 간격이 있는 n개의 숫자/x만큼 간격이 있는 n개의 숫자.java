@@ -4,7 +4,7 @@ class Solution {
         long[] answer;
         List<Long> tmp = new ArrayList<>();
         for(int i=1; i<=n; i++) {
-            tmp.add((long)x*i);
+            tmp.add((long)x * i);
         }
         answer = tmp.stream().mapToLong(i -> i).toArray();
         return answer;
