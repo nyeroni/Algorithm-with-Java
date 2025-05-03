@@ -3,20 +3,19 @@ import java.util.*;
 class Solution {
     public String solution(String s) {
         String answer = "";
-        String [] str = s.split(" ");
-        for(String i : str) {
-            if(i.length() == 0) {
+        s = s.toLowerCase();
+        String[] str = s.split(" ");
+        for(String st : str) {
+            if(st.length() == 0) {
                 answer += " ";
             }
             else {
-                answer += i.substring(0, 1).toUpperCase();
-                answer += i.substring(1, i.length()).toLowerCase();
+                answer += st.substring(0, 1).toUpperCase();
+                answer += st.substring(1, st.length());
                 answer += " ";
             }
         }
-        if(s.charAt(s.length()-1) == ' ') {
-            return answer;
-        }
+        if(s.charAt(s.length()-1) == ' ')return answer;
         answer = answer.substring(0, answer.length()-1);
         return answer;
     }
