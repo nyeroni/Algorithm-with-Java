@@ -1,10 +1,10 @@
 class Solution {
     public int solution(int n) {
         int answer = 0;
-        String str = Integer.toString(n, 3);
-        StringBuffer sb = new StringBuffer(str);
-        str = sb.reverse().toString();
-        answer = Integer.parseInt(str, 3);
+        String s = Integer.toString(n, 3);
+        StringBuilder sb = new StringBuilder(s);
+        s = sb.reverse().toString();
+        answer = Integer.parseInt(s, 3);
         return answer;
     }
 }
