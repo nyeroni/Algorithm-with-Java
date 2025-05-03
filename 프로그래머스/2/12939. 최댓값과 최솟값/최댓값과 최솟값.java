@@ -3,17 +3,19 @@ import java.util.*;
 class Solution {
     public String solution(String s) {
         String answer = "";
-        String []tmp = s.split(" ");
-        int [] arr = new int[tmp.length];
-        int i=0;
-        for(String str : tmp) {
-            arr[i] = Integer.parseInt(str);
-            i++;
+        String[] str = s.split(" ");
+        List<Integer> tmp = new ArrayList<>();
+        for(String st : str) {
+            if(st.length() == 2) {
+                tmp.add(Integer.parseInt(String.valueOf(st.charAt(1))) * -1);
+            } else {
+                tmp.add(Integer.parseInt(st));
+            }
         }
-        Arrays.sort(arr);
-        answer += arr[0]; 
+        Collections.sort(tmp);
+        answer += String.valueOf(tmp.get(0));
         answer += " ";
-        answer += arr[arr.length - 1];
+        answer += String.valueOf(tmp.get(tmp.size()-1));
         return answer;
     }
 }
