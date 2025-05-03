@@ -1,31 +1,25 @@
 class Solution {
-    static int cnt = 0;
-    static int zero = 0;
     public int[] solution(String s) {
-        
-        removeZero(s);
-        int [] answer = {cnt, zero};
+        String str = "";
+        int count = 0;
+        int zero = 0;
+        int []answer = new int[2];
+        while(true) {
+            if(s.length() == 1) break;
+            for(int i=0; i<s.length(); i++) {
+                if(s.charAt(i) == '1') {
+                    str += "1";
+                } else {
+                    zero ++;
+                }
+            }
+            System.out.println("s : " + s);
+            s = Integer.toBinaryString(str.length());
+            str = "";
+            count ++;
+        }
+        answer[0] = count;
+        answer[1] = zero;
         return answer;
     }
-    public void removeZero(String st) {
-        if(st.equals("1")) return;
-        cnt ++;
-        int num = 0;
-        for(int i=0; i<st.length(); i++) {
-            if(st.charAt(i) == '1') {
-                num ++;
-            }
-        }
-        zero += st.length() - num;
-        removeZero(binary(num));
-    }
-    public String binary(int num) {
-        String str = "";
-        while(num > 1) {
-            str += num % 2;
-            num /= 2;
-        }
-        str += num % 2;
-        return str;
-    } 
 }
