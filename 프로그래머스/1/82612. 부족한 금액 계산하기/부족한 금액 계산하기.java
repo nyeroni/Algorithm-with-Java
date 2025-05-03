@@ -1,14 +1,14 @@
 class Solution {
     public long solution(int price, int money, int count) {
         long answer = -1;
-        long p = 0;
+        long sum = 0;
         for(int i=1; i<=count; i++) {
-            p += price * i;
+            sum += (price * i);
         }
-        if(p <= money) {
-            return 0;
-        }
-        answer = p - money;
+        answer = money - sum;
+        if(answer > 0) {
+            answer = 0;
+        } else answer *= -1;
         return answer;
     }
 }
