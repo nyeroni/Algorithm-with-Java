@@ -1,20 +1,22 @@
 class Solution {
     public int solution(int n) {
-        int count = countOnes(binary(n));
-        while(countOnes(binary(++n)) != count);
-        return n;
-        
+        int cnt = countBinary(n);
+        int tmp = 0;
+        while(true) {
+            tmp = countBinary(++n);
+            if(cnt == tmp) break;
+        }
+        return n;   
     }
-    public String binary(int n) {
-        return Integer.toBinaryString(n);
-    }
-    public int countOnes(String str) {
-        int cnt=0;
-        for(int i = str.length()-1; i>=0; i--) {
-            if(str.charAt(i)=='1') {
-                cnt ++;
+    public int countBinary(int n) {
+        String s = Integer.toString(n, 2);
+        // System.out.println("n : " + n + ", s : " + s);
+        int count = 0;
+        for(int i=0; i<s.length(); i++) {
+            if(s.charAt(i) == '1') {
+                count ++;
             }
         }
-        return cnt;
+        return count;
     }
 }
