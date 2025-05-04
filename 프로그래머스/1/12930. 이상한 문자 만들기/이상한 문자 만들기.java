@@ -3,15 +3,18 @@ class Solution {
         String answer = "";
         s = s.toLowerCase();
         String[] str = s.split(" ", -1);
-
-        for(String st : str) {
-            for(int i=0; i<st.length(); i++) { 
-                if(i % 2 == 0) {
-                    char c = Character.toUpperCase(st.charAt(i));
-                    answer += String.valueOf(c);
+        for(String ss : str) {
+            // System.out.println("ss : " + ss);
+            if(ss.equals(" ")) {
+                answer += " ";
+                continue;
+            }
+            for(int i=0; i<ss.length(); i++) {
+                if(i%2==0) {
+                    answer += String.valueOf(ss.charAt(i)).toUpperCase();
                 } else {
-                    char c = Character.toLowerCase(st.charAt(i));
-                    answer += String.valueOf(c);                }
+                    answer += ss.charAt(i);
+                }
             }
             answer += " ";
         }
