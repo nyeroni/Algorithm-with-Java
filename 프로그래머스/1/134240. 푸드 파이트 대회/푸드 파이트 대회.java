@@ -6,10 +6,11 @@ class Solution {
                 answer += i;
             }
         }
-        StringBuffer sb = new StringBuffer(answer);
-        String str = sb.reverse().toString();
+        String tmp = answer;
         answer += "0";
-        answer += str;
+        StringBuffer sb = new StringBuffer(tmp);
+        tmp = sb.reverse().toString();
+        answer += tmp;
         return answer;
     }
 }
