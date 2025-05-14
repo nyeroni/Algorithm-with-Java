@@ -9,9 +9,9 @@ class Solution {
         s = s.replaceAll("five", "5");
         s = s.replaceAll("six", "6");
         s = s.replaceAll("seven", "7");
-        s = s = s.replaceAll("eight", "8");
+        s = s.replaceAll("eight", "8");
         s = s.replaceAll("nine", "9");
-
+        
         answer = Integer.parseInt(s);
         return answer;
     }
