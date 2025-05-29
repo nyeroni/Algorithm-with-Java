@@ -3,48 +3,44 @@ import java.util.*;
 class Solution {
     public int solution(String s) {
         int answer = 0;
-        String tmp = s;
-        boolean flag = true;
-        for(int j=0; j<s.length(); j++) {
-            Stack<String> st = new Stack<>();
-            for(int i=0; i<s.length(); i++) {
-                flag = true;
-                if(tmp.charAt(i) == '[' || tmp.charAt(i) == '(' || tmp.charAt(i) == '{') {
-                    st.push(String.valueOf(tmp.charAt(i)));
-                } else if(tmp.charAt(i) == ']') {
-                    if(st.empty()) {
-                        flag = false;
-                        break;
-                    }
-                    if(!st.empty() && st.peek().equals("[") ) {
-                        st.pop();
-                    }
-                } else if(tmp.charAt(i) == ')') {
-                     if(st.empty()) {
-                         flag = false;
-                        break;
-                      }       
-                    if(!st.empty() && st.peek().equals("(") ) {
-                        st.pop();
-                    }
-                }
-                else if(tmp.charAt(i) == '}') {
-                    if(st.empty()) {
-                        flag = false;
-                        break;
-                    }
-                    if(!st.empty() && st.peek().equals("{"))  {
-                        st.pop();
-                    }
-                }
-            }
-            if(st.empty() && flag) {
+        for(int i=0; i<s.length(); i++) {
+            s += s.charAt(0);
+            s = s.substring(1, s.length());
+            if(check(s)) {
                 answer ++;
             }
-            String tmpStr = String.valueOf(tmp.charAt(0));
-            tmp = tmp.substring(1, tmp.length());
-            tmp += tmpStr;
         }
         return answer;
+    }
+    public boolean check(String s) {
+        Stack<String> stack = new Stack<>();
+        for(int i=0; i<s.length(); i++) {
+            if(s.charAt(i) == '(') {
+                stack.push("(");
+            } else if(s.charAt(i) == '{') {
+                stack.push("{");
+            } else if(s.charAt(i) == '[') {
+                stack.push("[");
+            }
+            else {
+                if(stack.isEmpty()) {
+                    return false;
+                }
+                String str = stack.peek();
+                if(str.equals("(") && s.charAt(i) == ')') {
+                    stack.pop();
+                } 
+                else if(str.equals("{") && s.charAt(i) == '}') {
+                    stack.pop();
+                }
+                else if(str.equals("[") && s.charAt(i) == ']') {
+                    stack.pop();
+                }
+            }
+        }
+        if(!stack.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }
