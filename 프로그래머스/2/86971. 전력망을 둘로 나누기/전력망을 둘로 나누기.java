@@ -5,15 +5,13 @@ class Solution {
     public int solution(int n, int[][] wires) {
         int answer = n;
         arr = new int[n+1][n+1];
-        int row = wires.length;
-        for(int i=0; i<row; i++) {
+        int len = wires.length;
+        for(int i=0; i<len; i++) {
             arr[wires[i][0]][wires[i][1]] = 1;
             arr[wires[i][1]][wires[i][0]] = 1;
         }
-        
         int a, b;
-        
-        for(int i=0; i<row; i++) {
+        for(int i=0; i<len; i++) {
             a = wires[i][0];
             b = wires[i][1];
             
@@ -25,28 +23,24 @@ class Solution {
             arr[a][b] = 1;
             arr[b][a] = 1;
         }
-        
         return answer;
     }
-    public int bfs(int n, int a) {
-        int [] visited = new int[n+1];
+    private int bfs(int n, int a) {
+        int[] visited = new int[n+1];
         int cnt = 1;
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(a);
         while(!queue.isEmpty()) {
             int point = queue.poll();
             visited[point] = 1;
-            
             for(int i=1; i<=n; i++) {
-                if(visited[i] == 1) {
-                    continue;
-                }
+                if(visited[i] == 1)continue;
                 if(arr[point][i] == 1) {
+                    cnt ++;
                     queue.offer(i);
-                    cnt++;
                 }
             }
         }
-        return (int) Math.abs(n - 2 * cnt);
+        return (int)Math.abs(n - 2 * cnt);
     }
 }
