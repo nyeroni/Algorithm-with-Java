@@ -4,22 +4,23 @@ class Solution {
         int[] answer = new int[2];
         answer[0] = 0;
         answer[1] = 0;
+        int count = 1;
+        char c = words[0].charAt(words[0].length()-1);
+        if(words[0].length() == 1) return new int[]{1, 1};
         List<String> tmp = new ArrayList<>();
-        for(int i=0; i<words.length; i++) {
-            String str = words[i];
-            if(tmp.size()!= 0 && (tmp.get(tmp.size()-1).charAt(tmp.get(tmp.size()-1).length()-1) != str.charAt(0) || tmp.contains(str) || str.length() < 2) ) {
-                System.out.println("I : " + i);
-                answer[0] = (i)%n + 1;
-                answer[1] = i/n + 1;
-                //n=3 012 -> 1 345 -> 2 678 -> 3
-                //n=2 01 -> 1 23 -> 2 45 -> 3 67 -> 4
-                break;
-
-            } else {
-                tmp.add(str);
+        tmp.add(words[0]);
+        for(int i=1; i<words.length; i++) {
+            if((i+1) % n == 1) {
+                count ++;
             }
+            if(words[i].charAt(0) != c || tmp.contains(words[i]) || words[i].length() == 1) {
+                answer[0] = i%n + 1;
+                answer[1] = count;
+                break;
+            }
+            c = words[i].charAt(words[i].length()-1);
+            tmp.add(words[i]);
         }
-
         return answer;
     }
 }
