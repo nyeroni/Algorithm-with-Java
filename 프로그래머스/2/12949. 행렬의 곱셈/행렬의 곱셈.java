@@ -3,18 +3,24 @@ class Solution {
         int[][] answer = new int[arr1.length][arr2[0].length];
         for(int i=0; i<arr1.length; i++) {
             for(int j=0; j<arr2[0].length; j++) {
-                int ans = 0;
+                int sum = 0;
                 for(int k=0; k<arr1[i].length; k++) {
-                    ans += arr1[i][k] * arr2[k][j];
+                    sum += arr1[i][k] * arr2[k][j];
                 }
-                answer[i][j] = ans;
+                answer[i][j] = sum;
             }
         }
-     
+        
         return answer;
-       // 00 * 00 + 01 * 10      00 * 10 + 01 * 11
-        //13     33
-        //32     33
-        //41
     }
+    /*
+    1 4
+    3 2 
+    4 1
+    
+    3 3
+    3 3
+    
+    00 * 00 + 01 * 10, 00 * 01 + 01 * 11
+    */
 }
