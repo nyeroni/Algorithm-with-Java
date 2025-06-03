@@ -3,12 +3,11 @@ import java.util.*;
 class Solution {
     public int solution(String[][] clothes) {
         int answer=1;
-        Map<String, Integer> clothesMap = new HashMap<>();
-       
+        Map<String, Integer> map = new HashMap<>();
         for(String[] item : clothes) {
-            clothesMap.put(item[1], clothesMap.getOrDefault(item[1], 0) + 1);
+            map.put(item[1], map.getOrDefault(item[1], 0) + 1);
         }
-        for(int count : clothesMap.values()) {
+        for(int count : map.values()) {
             answer *= (count + 1);
         }
         return answer - 1;
