@@ -1,14 +1,15 @@
 import java.util.*;
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        int []answer;
-        
+        int[] answer;
         Queue<Integer> queue = new LinkedList<>();
         for(int i=0; i<progresses.length; i++) {
-            int n = (int)Math.ceil((100.0 - progresses[i])/speeds[i]);
-            queue.offer(n);
+            int num = (int)Math.ceil((100.0 - progresses[i]) / speeds[i]);
+            queue.offer(num);
         }
+        
         List<Integer> tmp = new ArrayList<>();
+        
         while(!queue.isEmpty()) {
             int m = queue.poll();
             int count = 1;
@@ -17,9 +18,7 @@ class Solution {
                 if(k <= m) {
                     queue.poll();
                     count ++;
-                } else {
-                    break;
-                }
+                } else break;
             }
             tmp.add(count);
         }
