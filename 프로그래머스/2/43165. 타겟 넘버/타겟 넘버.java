@@ -4,14 +4,14 @@ class Solution {
         dfs(numbers, target, 0, 0);
         return answer;
     }
-    public void dfs(int[] numbers, int target, int idx, int sum) {
-        if(idx == numbers.length){
+    public void dfs(int[] numbers, int target, int sum, int depth) {
+        if(depth == numbers.length) {
             if(sum == target) {
-                answer ++;
+               answer ++;
             }
             return;
         }
-        dfs(numbers, target, idx+1, sum + numbers[idx]);
-        dfs(numbers, target, idx+1, sum - numbers[idx]);
+        dfs(numbers, target, sum - numbers[depth], depth + 1);
+        dfs(numbers, target, sum + numbers[depth], depth + 1);
     }
 }
