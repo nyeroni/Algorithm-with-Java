@@ -2,7 +2,6 @@ import java.util.*;
 class Solution {
     public String solution(String number, int k) {
         StringBuilder sb = new StringBuilder();
-        
         Stack<Character> stack = new Stack<>();
         int cnt = 0;
         
