@@ -8,14 +8,13 @@ class Solution {
         for(int i=0; i<name.length; i++) {
             map.put(name[i], yearning[i]);
         }
+        
         for(int i=0; i<photo.length; i++) {
-            int count = 0;
-            for(int j=0; j<photo[i].length; j++) {
-                if(map.containsKey(photo[i][j])) {
-                    count += map.get(photo[i][j]);
-                }
+            int sum = 0;
+            for(String n : photo[i]) {
+                sum += map.getOrDefault(n, 0);
             }
-            answer[i] = count;
+            answer[i] = sum;
         }
         return answer;
     }
