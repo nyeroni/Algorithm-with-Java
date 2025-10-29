@@ -1,8 +1,6 @@
 import java.util.*;
-class Solution
-{
-    public int solution(int n, int a, int b)
-    {
+class Solution {
+    public int solution(int n, int a, int b) {
         int answer = 0;
         while(a!=b) {
             a = (a+1)/2;
