@@ -1,22 +1,21 @@
 class Solution {
     public int solution(int n) {
-        int cnt = countBinary(n);
-        int tmp = 0;
+        int cnt = cntOne(n);
         while(true) {
-            tmp = countBinary(++n);
-            if(cnt == tmp) break;
-        }
-        return n;   
-    }
-    public int countBinary(int n) {
-        String s = Integer.toString(n, 2);
-        // System.out.println("n : " + n + ", s : " + s);
-        int count = 0;
-        for(int i=0; i<s.length(); i++) {
-            if(s.charAt(i) == '1') {
-                count ++;
+            if(cntOne(++n) == cnt) {
+                break;
             }
         }
-        return count;
+        return n;
+    }
+    public int cntOne(int n) {
+        String str = Integer.toBinaryString(n);
+        int cnt = 0;
+        for(char c : str.toCharArray()) {
+            if(c == '1') {
+                cnt ++;
+            }
+        }
+        return cnt;
     }
 }
