@@ -1,4 +1,4 @@
 SELECT *
 FROM FOOD_PRODUCT
-order by price desc
-limit 1
+ORDER BY PRICE DESC
+LIMIT 1;
