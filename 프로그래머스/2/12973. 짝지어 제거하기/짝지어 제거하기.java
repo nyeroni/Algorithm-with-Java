@@ -2,16 +2,15 @@ import java.util.*;
 
 class Solution {
     public int solution(String s) {
+        int answer = 0;
         Stack<Character> stack = new Stack<>();
-        int i = 0;
-        while(true) {
-            if(i == s.length()) break;
-            if(!stack.isEmpty() && s.charAt(i) == stack.peek()) {
+        for(char c : s.toCharArray()) {
+            if(!stack.isEmpty() && stack.peek() == c) {
                 stack.pop();
-            } else stack.push(s.charAt(i));
-            i++;
+            }
+            else stack.push(c);
         }
-        if(stack.isEmpty()) return 1;
+        if(stack.isEmpty())return 1;
         return 0;
     }
 }
