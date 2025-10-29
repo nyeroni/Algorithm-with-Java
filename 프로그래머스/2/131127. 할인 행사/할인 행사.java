@@ -9,13 +9,12 @@ class Solution {
             length += number[i];
         }
         for(int i=0; i<=discount.length-length; i++) {
-            Map<String, Integer> map2 = new HashMap<>();
-            for(int j=i; j<i + length; j++) {
-                map2.put(discount[j], map2.getOrDefault(discount[j], 0) + 1);
+            Map<String, Integer> tmp = new HashMap<>();
+            for(int j=i; j<i+length; j++) {
+                tmp.put(discount[j], tmp.getOrDefault(discount[j], 0) + 1);
+                // System.out.println("discount[j] : " + discount[j] + "tmp.get(discount) : " + tmp.get(discount[j]));
             }
-            if(map.equals(map2)) {
-                answer ++;
-            }
+            if(map.equals(tmp)) answer ++;
         }
         return answer;
     }
