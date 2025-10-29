@@ -4,28 +4,23 @@ class Solution {
     public int solution(int k, int[] tangerine) {
         int answer = 0;
         Arrays.sort(tangerine);
-        //[1, 2, 2, 3, 3, 4, 5, 5] -> 4
         Map<Integer, Integer> map = new HashMap<>();
-        
-        for(int i=0; i<tangerine.length; i++) {
-            map.put(tangerine[i], map.getOrDefault(tangerine[i], 0) + 1);
+        for(int num : tangerine) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        //map의 value 정렬은 어떻게?
-        
-        List<Integer> list = new ArrayList<>();
-        
+        //map value 크기로 정렬 ..?
+        int[] arr = new int[map.size()];
+        int j = 0;
         for(int num : map.keySet()) {
-            list.add(map.get(num));
+            arr[j] = map.get(num);
+            j++;
         }
-        
-        Collections.sort(list);
-        Collections.reverse(list);
-        for(int num : list) {
-            k-=num;
-            answer++;
-            if(k<=0) {
-                break;
-            }
+        int sum = 0;
+        Arrays.sort(arr);
+        for(int i=arr.length-1; i>=0; i--) {
+            sum += arr[i];
+            answer ++;
+            if(sum >= k) break;
         }
         return answer;
     }
