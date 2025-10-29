@@ -1,25 +1,24 @@
 class Solution {
     public int[] solution(String s) {
-        String str = "";
-        int count = 0;
-        int zero = 0;
-        int []answer = new int[2];
+        int sum = 0;
+        int cnt = 0;
         while(true) {
-            if(s.length() == 1) break;
-            for(int i=0; i<s.length(); i++) {
-                if(s.charAt(i) == '1') {
-                    str += "1";
-                } else {
-                    zero ++;
-                }
-            }
-            System.out.println("s : " + s);
-            s = Integer.toBinaryString(str.length());
-            str = "";
-            count ++;
+            int one = removeZero(s);
+            int zero = s.length() - one;
+            if(s.equals("1")) break;
+            s = Integer.toBinaryString(one);
+            sum += zero;
+            cnt ++;
         }
-        answer[0] = count;
-        answer[1] = zero;
-        return answer;
+        return new int[]{cnt, sum};
+    }
+    public int removeZero(String s) {
+        int cnt = 0;
+        for(char c : s.toCharArray()) {
+            if(c == '1') {
+                cnt ++;
+            }
+        }
+        return cnt;
     }
 }
