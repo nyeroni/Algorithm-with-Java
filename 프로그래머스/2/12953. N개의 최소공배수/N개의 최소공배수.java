@@ -1,16 +1,28 @@
 class Solution {
     public int solution(int[] arr) {
-      int answer = lcm(arr[0], arr[1]);
-        for(int i=2; i<arr.length; i++) {
-            answer = lcm(answer, arr[i]);
+        int answer = 0;
+        for(int i=0; i<arr.length-1; i++) {
+            // System.out.println("arr[i] : " + arr[i] + ", arr[i+1] : " + arr[i+1] + ", arr[i] + arr[i+1] : " + (arr[i] + arr[i+1]));
+            arr[i+1] = LCM(arr[i], arr[i+1]);
         }
-        return answer;
+        return arr[arr.length-1];
     }
-    private int lcm(int a, int b) {
-        return (a * b) / gcd(a, b);
+    //최소 공배수
+    private int LCM(int a, int b) {
+        return (a * b) / GCD(a, b);
     }
-    private int gcd(int a, int b) {
-        if(b==0) return a;
-        return gcd(b, a%b);
+    //최대 공약수
+    private int GCD(int a, int b) {
+        if(a > b) {
+            int tmp = a;
+            a = b;
+            b = tmp;
+        }
+        for(int i=a; i>=1; i--) {
+            if(a%i == 0 && b%i==0) {
+                return i;
+            }
+        }
+        return 1;
     }
 }
