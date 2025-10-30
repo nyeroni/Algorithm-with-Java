@@ -1,0 +1,6 @@
+select e.id, e.GENOTYPE, p.GENOTYPE AS PARENT_GENOTYPE
+from ECOLI_DATA e
+join ECOLI_DATA p
+on e.PARENT_ID = p.id
+where e.PARENT_ID is NOT NULL AND e.GENOTYPE & p.GENOTYPE = p.GENOTYPE
+order by e.id;
