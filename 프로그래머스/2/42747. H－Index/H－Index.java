@@ -1,20 +1,16 @@
 import java.util.*;
 class Solution {
     public int solution(int[] citations) {
-        int cnt=0, h=0, answer = -1;
+        int answer = 0;
         Arrays.sort(citations);
-        while(true) {
-            cnt = 0;
-            for(int i=0; i<citations.length; i++) {
-                if(citations[i] >= h) {
-                    cnt ++;
-                }
-            }
-            if(cnt < h) {
-                answer =  h -1;
+        // 0 1 3 5 6
+        int length = citations.length;
+        while(length > answer) {
+            System.out.println("answer : " + answer);
+            if(citations[length - answer-1] <= answer) {
                 break;
             }
-            h++;
+            answer ++;
         }
         return answer;
     }
