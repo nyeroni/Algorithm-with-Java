@@ -1,15 +1,21 @@
 import java.util.*;
 class Solution {
     public int[] solution(int n, long left, long right) {
-        int size = (int)(right - left + 1);
-        int[] answer = new int[size];
-       
-        for(long idx = left; idx<=right; idx++) {
-            int i = (int)(idx/n) + 1; //행
-            int j = (int)(idx%n) + 1; //열
-            
-            answer[(int)(idx-left)] = Math.max(i, j);
+        // 00 -> 1
+        // 10 01 11 -> 2
+        // 20 21 22 02 12 -> 3
+        // 00 01 02 10 11 12 20 21 22
+        // 0. 1. 2. 3. 4. 5. 6. 7. 8
+        
+        int[] answer = new int[(int)(right - left) + 1];
+        
+        for(long i=left; i<=right; i++) {
+            int a = (int)(i/(long)n);
+            int b = (int)(i%(long)n);
+            int max = Math.max(a, b) + 1;
+            answer[(int)(i-left)] = max;
         }
         return answer;
+        
     }
 }
