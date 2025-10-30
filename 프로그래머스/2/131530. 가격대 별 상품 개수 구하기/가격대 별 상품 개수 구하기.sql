@@ -1,0 +1,4 @@
+SELECT TRUNCATE(price / 10000, 0) * 10000 AS PRICE_GROUP, count(*) AS PRODUCTS
+from PRODUCT
+group by TRUNCATE(price / 10000, 0) * 10000 
+order by PRICE_GROUP;
