@@ -1,37 +1,22 @@
 import java.util.*;
 class Solution {
-    Map<Integer, List<Integer>> map;
-    boolean []visited;
     public int solution(int n, int[][] computers) {
+        boolean[] visited = new boolean[n];
         int answer = 0;
-        visited = new boolean[n];
-        map = new HashMap<>();
-        for(int i=0; i<computers.length; i++) {
-            map.put(i, new ArrayList<>());
-            for(int j=0; j<computers[i].length; j++) {
-                if(computers[i][j] == 1 && i != j) {
-                    map.get(i).add(j);
-                }
-            }       
-        }
-        for(int i : map.keySet()) {
+        for(int i=0; i<n; i++) {
             if(!visited[i]) {
-                visited[i] = true;
-                dfs(i);
+                dfs(computers, i, visited);
                 answer ++;
-                // visited[i] = false;
             }
         }
         return answer;
     }
-    public void dfs(int num) {
-        for(int i : map.get(num)) {
-            if(!visited[i]) {
-                visited[i] = true;
-                dfs(i);
-                // visited[i] = false;
+    private void dfs(int[][] computers, int node, boolean []visited) {
+        visited[node] = true;
+        for(int i=0; i<computers.length; i++) {
+            if(!visited[i] && computers[node][i] == 1) {
+                dfs(computers, i, visited);
             }
         }
-        
     }
 }
