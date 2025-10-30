@@ -1,17 +1,16 @@
 class Solution {
-    static int answer = 0;
+    static int cnt = 0;
     public int solution(int[] numbers, int target) {
-        dfs(numbers, target, 0, 0);
-        return answer;
+        boolean[] visited = new boolean[numbers.length];
+        dfs(numbers, 0, target, 0);
+        return cnt;
     }
-    public void dfs(int[] numbers, int target, int sum, int depth) {
+    private void dfs(int[] numbers, int num, int target, int depth) {
         if(depth == numbers.length) {
-            if(sum == target) {
-               answer ++;
-            }
+            if(num == target) cnt ++;
             return;
         }
-        dfs(numbers, target, sum - numbers[depth], depth + 1);
-        dfs(numbers, target, sum + numbers[depth], depth + 1);
+        dfs(numbers, num + numbers[depth], target, depth + 1);
+        dfs(numbers, num - numbers[depth], target, depth + 1);
     }
 }
