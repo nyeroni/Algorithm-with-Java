@@ -1,32 +1,15 @@
 import java.util.*;
 class Solution {
     public int[] solution(int[] numbers) {
-       int [] answer = new int[numbers.length];
         Stack<Integer> stack = new Stack<>();
-        int idx = numbers.length-1;
-        answer[idx --]  = -1;
-        for(int i=numbers.length-2; i>=0; i--) {
-            if(numbers[i] < numbers[i+1]) {
-                stack.push(numbers[i+1]);
-                answer[idx--] = numbers[i+1];
-                continue;
-            } else {
-                boolean flag = false;
-                while(!stack.isEmpty()) {
-                    int num = stack.peek();
-                    if(num > numbers[i]) {
-                        flag = true;
-                        answer[idx--] = num;
-                        break;
-                    }
-                    else {
-                        stack.pop();
-                    }
-                }
-                if(!flag) {
-                    answer[idx --]  = -1;
-                }
+        int[] answer = new int[numbers.length];
+        for(int i=numbers.length-1; i>=0; i--) {
+            int now = numbers[i];
+            while(!stack.isEmpty() && stack.peek() <= now) {
+                stack.pop();
             }
+            answer[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(now);
         }
         return answer;
     }
