@@ -3,20 +3,17 @@ import java.util.*;
 class Solution {
     public int solution(String word) {
         int answer = 0;
-        List<String> words = new ArrayList<>();
-        makeWord("", words);
-        answer = words.indexOf(word);
+        List<String> list = new ArrayList<>();
+        makeWord("", list);
+        answer = list.indexOf(word);
         return answer;
     }
-    public void makeWord(String w, List<String> words) {
-        words.add(w);
+    private void makeWord(String w, List<String> list) {
+        list.add(w);
         String[] str = {"A", "E", "I", "O", "U"};
-       if(w.length() == 5)
-       {
-           return;
-       }        
+        if(w.length() == 5) return;
         for(int i=0; i<str.length; i++) {
-            makeWord(w + str[i], words);
+            makeWord(w + str[i], list);
         }
     }
 }
