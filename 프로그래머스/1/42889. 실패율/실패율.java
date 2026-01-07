@@ -1,36 +1,33 @@
 import java.util.*;
 class Solution {
     public int[] solution(int N, int[] stages) {
-        int[] answer = new int[N];
-        List<Integer> tmp = new ArrayList<>();
-        for(int i=0; i<stages.length; i++) {
-            tmp.add(stages[i]);
-        }
-        tmp.sort(Comparator.reverseOrder());
-        Map<Integer, Double> fail = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        
         for(int i=1; i<=N; i++) {
-             if(tmp.indexOf(i) == -1) {
-                fail.put(i, 0.0);
-                 continue;
-            }
-            int m = (int) (tmp.lastIndexOf(i) + 1);
-            int n = m - tmp.indexOf(i);
-            
-            fail.put(i, (double)n/(double)m);
+            map.put(i, 0);
         }
+        
+        for(int i=0; i<stages.length; i++) {
+            if(stages[i] <= N)
+                map.put(stages[i], map.getOrDefault(stages[i], 0) + 1);
+        }
+        double n = stages.length;
+        Map<Integer, Double> result = new HashMap<>();
 
-        List<Map.Entry<Integer, Double>> entryList = new ArrayList<>(fail.entrySet());
-        entryList.sort((e1, e2) -> {
-            int valueCompare = e2.getValue().compareTo(e1.getValue());
-            if(valueCompare == 0) {
-                return e1.getKey().compareTo(e2.getKey());
-            }
-            return valueCompare;
-        });
-    
-        for(int i=0; i<entryList.size(); i++) {
-            answer[i] = entryList.get(i).getKey();
+        for(int i=1; i<=N; i++) {
+            if(n==0) result.put(i, 0.0);
+            else result.put(i, ((double)map.get(i)/(double)n));
+            n-=map.get(i);
         }
-        return answer;
+        
+        List<Integer> list = new ArrayList<>(result.keySet());
+       
+        list.sort((a, b) -> {
+            int cmp = Double.compare(result.get(b), result.get(a));
+            if(cmp != 0) return cmp;
+            return Integer.compare(a, b);
+        });
+        
+        return list.stream().mapToInt(i->i).toArray();
     }
 }
