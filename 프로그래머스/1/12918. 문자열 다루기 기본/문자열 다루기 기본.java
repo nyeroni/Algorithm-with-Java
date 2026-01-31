@@ -1,12 +1,14 @@
 class Solution {
     public boolean solution(String s) {
-        int tmp = 0;
-        for(int i=0; i<s.length(); i++) {
-            if(s.charAt(i) >= '0' && s.charAt(i) <= '9') {
-                tmp ++;
+        int len = s.length();
+        if(len != 4 && len != 6) return false;
+        int cnt = 0;
+        for(char c : s.toCharArray()) {
+            if(c >= '0' && c <= '9') {
+                cnt ++;
             }
         }
-        if(tmp == s.length() && (s.length() == 4 || s.length() == 6)) return true;
+        if(cnt == len) return true;
         return false;
     }
 }
