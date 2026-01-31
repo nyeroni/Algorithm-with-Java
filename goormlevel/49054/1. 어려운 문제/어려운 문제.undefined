@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		if(N>=9) {
+			System.out.println("9");
+			return;
+		}
+		int answer = 1;
+		for(int i=1; i<=N; i++) {
+			answer *= i;
+		}
+		if(answer == 0) System.out.println("0");
+
+		answer = answer % 9;
+		if(answer == 0) {
+			System.out.println("9");
+		} else System.out.println(answer);
+	}
+}
