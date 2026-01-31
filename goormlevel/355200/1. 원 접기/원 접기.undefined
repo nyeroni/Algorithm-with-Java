@@ -1,0 +1,26 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		long AM = Long.parseLong(st.nextToken());
+		long CM = Long.parseLong(st.nextToken());
+		long BM = Long.parseLong(st.nextToken());
+
+		long a = AM * BM;
+		long tmp = gcd(a, CM);
+		a /= tmp;
+		CM /= tmp;
+		System.out.println(a + " " + CM);
+	}
+	static long gcd(long a, long b) {
+		while(b!=0) {
+			long t = a % b;
+			a = b;
+			b = t;
+		}
+		return Math.abs(a);
+	}
+}
