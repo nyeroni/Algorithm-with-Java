@@ -1,0 +1,20 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		long K = Long.parseLong(st.nextToken());
+		long D1 = Long.parseLong(st.nextToken());
+		long D2 = Long.parseLong(st.nextToken());
+
+		double under = Math.abs((D2 - D1))/2.0;
+		// System.out.println("under : " + under);
+		// System.out.println("Math.pow((double)K, 2) : " + Math.pow((double)K, 2));
+		// System.out.println("Math.pow((double)under, 2) : " + Math.pow(under, 2));
+
+		double height = Math.pow((double)K, 2) - Math.pow((double)under, 2);
+		System.out.println((long)(height * 4));
+	}
+}
