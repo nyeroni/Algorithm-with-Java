@@ -1,0 +1,34 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+	
+		int N = Integer.parseInt(st.nextToken());
+		int[] x = new int[N];
+		int[] y = new int[N];
+		for(int i=0; i<N; i++) {
+			st = new StringTokenizer(br.readLine());
+			x[i] = Integer.parseInt(st.nextToken());
+			y[i] = Integer.parseInt(st.nextToken());
+		}
+		Arrays.sort(x);
+		Arrays.sort(y);
+
+		int idx = 0;
+		if(N%2==0) idx = N/2 - 1;
+		else idx = N/2;
+
+		int mx = x[idx];
+		int my = y[idx];
+
+		long sum = 0;
+		for(int i=0; i<N; i++) {
+			sum += Math.abs(mx - x[i]);
+			sum += Math.abs(my - y[i]);
+		}
+		System.out.println(sum);
+	}
+}
