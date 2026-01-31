@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		// 두 딱지의 별의 개수가 다르다면 -> 별이 많은 쪽이 승리
+		// 별의 개수가 같고 동그라미의 개수가 다르면 -> 동그라미가 많은 쪽의 딱지 승
+		// 별, 동그라미의 개수가 같고 네모의 개수가 다르다면 -> 네모가 많은 쪽
+		// 별, 동그라미, 네모의 개수가 같고 세모가 다르다면 -> 세모 많은 쪽
+		// 다 같다면 무승부!
+		// 별 -> 동그라미 -> 네모 -> 세모
+		long N = Long.parseLong(br.readLine());
+		String str1 = "";
+		String str2 = "";
+		for(int i=0; i<N; i++) {
+			str1 = br.readLine();
+			str2 = br.readLine();
+			int num = game(str1, str2);
+			if(num == 1) {
+				System.out.println("A");
+			}
+			else if(num == 2) {
+					System.out.println("B");
+			} else if(num == 0) {
+					System.out.println("D");
+			}
+		}
+	}
+	static int game(String a, String b) {
+			Map<Integer, Integer> aMap = new HashMap<>();
+			Map<Integer, Integer> bMap = new HashMap<>();
+			String[] strA = a.split(" ");
+			String[] strB = b.split(" ");
+			
+			// System.out.println("a : " + a);
+			// System.out.println("b : " + b);
+			for(int i=1; i<strA.length; i++) {
+				String s = strA[i];
+				int num = Integer.parseInt(s);
+				aMap.put(num, aMap.getOrDefault(num, 0) + 1);
+			}
+			for(int i=1; i<strB.length; i++) {
+				String s = strB[i];
+				int num = Integer.parseInt(s);
+				bMap.put(num, bMap.getOrDefault(num, 0) + 1);
+			}
+
+			for(int i=4; i>=1; i--) {
+				int aNum = aMap.getOrDefault(i, 0);
+				int bNum = bMap.getOrDefault(i, 0);
+				// System.out.println("i : " + i + ", a : " + aNum + ", b : " + bNum);
+				if(aNum > bNum) return 1;
+				else if(aNum < bNum) return 2;
+			}
+			return 0;
+	}
+}
