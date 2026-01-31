@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int Bx = Integer.parseInt(st.nextToken());
+		int By = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		int Gx = Integer.parseInt(st.nextToken());
+		int Gy = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+
+		int dx = Math.abs(Gx-Bx);
+		int dy = Math.abs(Gy-By);
+		int dist = dx * dx + dy * dy;
+		if(dist < 25 || N < 3) {
+			System.out.println("NO");
+			return;
+		}
+
+		int minX = Math.min(Gx, Bx);
+		int maxX = Math.max(Gx, Bx);
+		int minY = Math.min(Gy, By);
+		int maxY = Math.max(Gy, By);
+		int cnt = 0;
+		for(int i=0; i<N; i++) {
+			st = new StringTokenizer(br.readLine());
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+			if(minX <= x && maxX >= x && minY <= y && maxY >= y) {
+				cnt ++;
+			}
+			if(cnt >= 3) {
+				System.out.println("YES");
+				return;
+			}
+		}
+		System.out.println("NO");
+	}
+}
