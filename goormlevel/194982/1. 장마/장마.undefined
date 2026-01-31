@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());		
+		int M = Integer.parseInt(st.nextToken());		
+		st = new StringTokenizer(br.readLine());
+		long[] arr = new long[N];
+		for(int i=0; i<N; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
+		boolean[] flag = new boolean[N];
+		// 장마가 시작된지 3의 배수 -> 배수시스템
+		for(int i=1; i<=M; i++) {
+			st = new StringTokenizer(br.readLine());
+			int s = Integer.parseInt(st.nextToken());
+			int e = Integer.parseInt(st.nextToken());
+			
+			for(int j=s-1; j<e; j++) {
+				arr[j] ++;
+				flag[j] = true;
+			}
+			if(i%3==0) {
+				for(int j=0; j<N; j++) {
+					if(flag[j]) {
+						arr[j] --;	
+					}
+				}
+				flag = new boolean[N];
+			}
+		} 
+		
+		for(int i=0; i<N; i++) {
+			System.out.print(arr[i]);
+			if(i != N-1)
+				System.out.print(" ");
+		}
+	}
+}
