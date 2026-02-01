@@ -1,0 +1,30 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	static boolean can(int x1, int y1, int x2, int y2, int H, int W) {
+		if(x1 + x2 <= W && Math.max(y1, y2) <= H) {
+			return true;
+		} 
+		if(y1 + y2 <= H && Math.max(x1, x2) <= W) {
+			return true;
+		}
+		return false;
+	}
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int H = Integer.parseInt(st.nextToken());
+		int W = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		int x1 = Integer.parseInt(st.nextToken());
+		int y1 = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		int x2 = Integer.parseInt(st.nextToken());
+		int y2 = Integer.parseInt(st.nextToken());
+
+		if(can(x1, y1, x2, y2, H, W) || can(x1, y1, y2, x2, H, W) ||
+			can(y1, x1, x2, y2, H, W) || can(y1, x1, y2, x2, H, W)) System.out.println("YES");
+		else System.out.println("NO");
+	}
+}
