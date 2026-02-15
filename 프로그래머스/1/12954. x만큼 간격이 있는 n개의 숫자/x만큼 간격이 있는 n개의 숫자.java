@@ -1,12 +1,12 @@
 import java.util.*;
 class Solution {
     public long[] solution(int x, int n) {
-        long[] answer;
-        List<Long> tmp = new ArrayList<>();
-        for(int i=1; i<=n; i++) {
-            tmp.add((long)x * i);
+        long[] answer = new long[n];
+        long num = x;
+        for(int i=0; i<n; i++) {
+            answer[i] = num;
+            num += x;
         }
-        answer = tmp.stream().mapToLong(i -> i).toArray();
         return answer;
     }
 }
