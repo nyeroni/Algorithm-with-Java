@@ -3,22 +3,23 @@ import java.util.*;
 class Solution {
     public String solution(String s) {
         s = s.toLowerCase();
-        String[] arr = s.split(" ");
-        StringBuilder sb = new StringBuilder();
-        for(String a : arr) {
-            if(a.length() == 0) {
-                sb.append(" ");
+        String answer = "";
+        int j = 0;
+        for(int i=0; i<s.length(); i++) {
+            if(s.charAt(i) == ' ') {
+                    answer += " ";
+                    j=0;
+                    continue;
             }
+            if(j == 0) {
+                answer += String.valueOf((s.charAt(i))).toUpperCase();
+                j++;
+            } 
             else {
-                sb.append(a.substring(0, 1).toUpperCase());
-                sb.append(a.substring(1, a.length()));
-                sb.append(" ");
+                answer += s.charAt(i);
+                j++;
             }
         }
-        String answer = sb.toString();
-        if(s.charAt(s.length()-1) == ' ') {
-            return answer;
-        }
-        return answer.substring(0, answer.length()-1);
+        return answer;
     }
 }
