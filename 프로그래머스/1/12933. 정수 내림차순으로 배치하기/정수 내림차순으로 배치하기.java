@@ -2,18 +2,18 @@ import java.util.*;
 
 class Solution {
     public long solution(long n) {
-        long answer = 0;
-        List<Integer> tmp = new ArrayList<>();
-        while(n>0) {
-            tmp.add((int)(n%10));
-            n/=10;
+        String s = String.valueOf(n);
+        Integer [] arr = new Integer[s.length()];
+        int i=0;
+        for(Character c : s.toCharArray()) {
+            arr[i] = Integer.parseInt(String.valueOf(c));
+            i++;
         }
-        tmp.sort(Comparator.reverseOrder());
-        String str = "";
-        for(int i=0; i<tmp.size(); i++) {
-            str += String.valueOf(tmp.get(i));
+        Arrays.sort(arr, Collections.reverseOrder());
+        StringBuilder sb = new StringBuilder();
+        for(int num : arr) {
+            sb.append(String.valueOf(num));
         }
-        answer = Long.parseLong(str);
-        return answer;
+        return Long.parseLong(sb.toString());
     }
 }
