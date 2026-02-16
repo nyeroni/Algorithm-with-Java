@@ -1,12 +1,14 @@
 class Solution {
     public int solution(int a, int b, int n) {
         int answer = 0;
-        int tmp = 0;
-        while(n >= a) {
-            tmp = (n / a) * b;
-            answer += tmp;
-            tmp += n % a;
-            n = tmp;
+        while(true) {
+            System.out.println("n :" + n);
+            if(n < a) break;
+            int num = n/a;
+            int total = n - num * a;
+            total += b * num;
+            answer += b * num;
+            n = total;
         }
         return answer;
     }
