@@ -3,8 +3,10 @@ class Solution {
         String answer = "";
         for(int i=0; i<phone_number.length()-4; i++) {
             answer += "*";
-        } 
-        answer += phone_number.substring(phone_number.length()-4, phone_number.length());
+        }
+        for(int i=phone_number.length()-4; i<phone_number.length(); i++) {
+            answer += phone_number.charAt(i);
+        }
         return answer;
     }
 }
