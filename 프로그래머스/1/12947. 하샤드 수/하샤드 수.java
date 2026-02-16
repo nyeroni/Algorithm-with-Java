@@ -6,10 +6,7 @@ class Solution {
             sum += tmp%10;
             tmp/=10;
         }
-        
-        if(sum != 0 && x % sum == 0) {
-            return true;
-        }
+        if(x%sum == 0) return true;
         return false;
     }
 }
