@@ -1,13 +1,13 @@
 import java.util.*;
 class Solution {
     public String solution(String s) {
-        String answer = "";
-        String[] str = s.split("");
-        Arrays.sort(str, Comparator.reverseOrder());
-        for(String st : str) {
-            answer += st;
-        }
+        char[] ch = s.toCharArray();
         
+        Arrays.sort(ch);
+        String answer = "";
+        for(int i = ch.length-1; i>=0; i--) {
+            answer += ch[i];
+        }
         return answer;
     }
 }
