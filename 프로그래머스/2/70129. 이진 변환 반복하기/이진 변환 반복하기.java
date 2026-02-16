@@ -1,18 +1,18 @@
 class Solution {
     public int[] solution(String s) {
-        int sum = 0;
         int cnt = 0;
+        int remove = 0;
+       
         while(true) {
-            int one = removeZero(s);
-            int zero = s.length() - one;
-            if(s.equals("1")) break;
-            s = Integer.toBinaryString(one);
-            sum += zero;
+            int num = removeZero(s);
+            remove += s.length() - num;
+            s = Integer.toBinaryString(num);
             cnt ++;
+            if(s.equals("1")) break;
         }
-        return new int[]{cnt, sum};
+        return new int[]{cnt, remove};
     }
-    public int removeZero(String s) {
+    private int removeZero(String s) {
         int cnt = 0;
         for(char c : s.toCharArray()) {
             if(c == '1') {
