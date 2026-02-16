@@ -1,20 +1,21 @@
+import java.util.*;
+
 class Solution {
     public int[] solution(String s) {
-        int[] answer = new int[s.length()];
-        boolean flag = false;
-        for(int i=0; i<s.length(); i++) {
-            flag = false;
-            for(int j=i-1; j>=0; j--){
-                if(s.charAt(i) == s.charAt(j)) {
-                    answer[i] = i-j;
-                    flag = true;
+        int[] arr = new int[s.length()];
+    
+        for(int i=s.length()-1; i>=1; i--) {
+            char c = s.charAt(i);
+            arr[i] = -1;
+            for(int j=i-1; j>=0; j--) {
+                if(c == s.charAt(j)) {
+                    arr[i] = i - j;
                     break;
                 }
             }
-            if(!flag) {
-                answer[i] = -1;
-            }
         }
-        return answer;
+        arr[0] = -1;
+ 
+        return arr;
     }
 }
