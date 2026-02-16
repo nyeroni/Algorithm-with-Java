@@ -1,12 +1,13 @@
 import java.util.*;
 class Solution {
     public int solution(int[] d, int budget) {
-        int answer = 0;
         Arrays.sort(d);
+        int sum = 0;
+        int answer = 0;
         for(int i=0; i<d.length; i++) {
-            if(budget - d[i] < 0) break;
-            budget -= d[i];
-            answer ++;
+            sum += d[i];
+            if(sum <= budget) answer = i+1;
+            else break;
         }
         return answer;
     }
