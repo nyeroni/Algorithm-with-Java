@@ -1,17 +1,19 @@
 class Solution {
     public int solution(int n) {
-        int cnt = cntOne(n);
+        String s = Integer.toBinaryString(n);
+        int num = countOne(s);
         while(true) {
-            if(cntOne(++n) == cnt) {
+           n++;
+            s = Integer.toBinaryString(n);
+            if(num == countOne(s)) {
                 break;
             }
         }
         return n;
     }
-    public int cntOne(int n) {
-        String str = Integer.toBinaryString(n);
+    private int countOne(String s) {
         int cnt = 0;
-        for(char c : str.toCharArray()) {
+        for(char c : s.toCharArray()) {
             if(c == '1') {
                 cnt ++;
             }
