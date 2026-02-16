@@ -2,15 +2,12 @@ import java.util.*;
 
 class Solution {
     public String solution(String s) {
-        String answer = "";
-        String[] tmp = s.split(" ");
-        int[] arr = new int[tmp.length];
-        
-        for(int i=0; i<tmp.length; i++) {
-            arr[i] = Integer.parseInt(tmp[i]);
+        String[] arr = s.split(" ");
+        int[] num = new int[arr.length];
+        for(int i=0; i<arr.length; i++) {
+            num[i] = Integer.parseInt(arr[i]);
         }
-        Arrays.sort(arr);
-        answer = arr[0] + " " + arr[arr.length-1];
-        return answer;
+        Arrays.sort(num);
+        return num[0] + " " + num[num.length-1];
     }
 }
