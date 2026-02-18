@@ -1,33 +1,27 @@
 class Solution {
     public String[] solution(int n, int[] arr1, int[] arr2) {
         String[] answer = new String[n];
-        for(int i=0; i<arr1.length; i++) {
-            String s1 = Integer.toString(arr1[i], 2);
-            String s2 = Integer.toString(arr2[i], 2);
-            
-            StringBuffer sb1 = new StringBuffer(s1);
-            StringBuffer sb2 = new StringBuffer(s2);
-            
+        for(int i=0; i<n; i++) {
+            String map1 = Integer.toBinaryString(arr1[i]);
+            String map2 = Integer.toBinaryString(arr2[i]);
+            StringBuffer sb1 = new StringBuffer(map1);
+            StringBuffer sb2 = new StringBuffer(map2);
             while(sb1.length() != n) {
                 sb1.insert(0, "0");
             }
-            
             while(sb2.length() != n) {
                 sb2.insert(0, "0");
             }
+            map1 = sb1.toString();
+            map2 = sb2.toString();
             
-            s1 = sb1.toString();
-            s2 = sb2.toString();
-            
-            String str = "";
+            String ans = "";
             for(int j=0; j<n; j++) {
-                if(s1.charAt(j) == '1' || s2.charAt(j) == '1') {
-                    str += "#";
-                } else {
-                    str += " ";
-                }
+                if(map1.charAt(j) == '1' || map2.charAt(j) == '1') {
+                    ans += "#";
+                } else ans += " ";
             }
-            answer[i] = str;
+            answer[i] = ans;
         }
         return answer;
     }
