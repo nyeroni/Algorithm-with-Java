@@ -1,19 +1,20 @@
 import java.util.*;
 
 class Solution {
-    static int cnt = 0;
+    static int count = 0;
     public int solution(int k, int[][] dungeons) {
         boolean[] visited = new boolean[dungeons.length];
-    
-        dfs(dungeons, visited, k, k, 0);
-        return cnt;
+        dfs(dungeons, visited, 0, k);
+        return count;
     }
-    private void dfs(int[][] dungeons, boolean[] visited, int k, int energy, int depth) {
-        cnt = Math.max(cnt, depth);
+    private void dfs(int[][] dungeons, boolean[] visited, int depth, int energy) {
+        count = Math.max(count, depth);
         for(int i=0; i<dungeons.length; i++) {
-            if(!visited[i] && energy >= dungeons[i][0]) {
+            int a = dungeons[i][0];
+            int b = dungeons[i][1];
+            if(!visited[i] && a <= energy) {
                 visited[i] = true;
-                dfs(dungeons, visited, k, energy-dungeons[i][1], depth + 1);
+                dfs(dungeons, visited, depth + 1, energy-b);
                 visited[i] = false;
             }
         }
