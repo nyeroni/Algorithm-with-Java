@@ -2,25 +2,22 @@ class Solution {
     public int solution(int number, int limit, int power) {
         int answer = 0;
         for(int i=1; i<=number; i++) {
-            int c = count(i);
-            if(c <= limit) {
-                answer += c;
-            } else {
-                answer += power;
-            }
+            int n = count(i);
+            // System.out.println("n : " + n);
+            if(n <= limit) {
+                answer += n;
+            } else answer += power;
         }
         return answer;
     }
-    public int count (int n ) {
-        int cnt = 0;
-        for(int i=1; i<=Math.sqrt(n); i++) {
-            if(n%i == 0) {
-                cnt ++;
-            }
+    private int count(int num) {
+        int answer = 0;
+        int mid = (int)Math.sqrt(num);
+        for(int i=1; i<=mid; i++) {
+            // System.out.println("i : " + i);
+            if(num % i == 0) answer += 2;
         }
-        if((int)Math.sqrt(n) * (int) Math.sqrt(n) == n) {
-            return cnt * 2 - 1;
-        } 
-        return cnt * 2;
+        if(mid * mid == num) answer --;
+        return answer;
     }
 }
