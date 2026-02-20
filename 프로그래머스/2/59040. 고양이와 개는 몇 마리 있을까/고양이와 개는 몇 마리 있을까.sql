@@ -1,5 +1,4 @@
-SELECT animal_type, count(*)
-from animal_ins
-where animal_type like 'Cat' OR animal_type like 'Dog'
-group by animal_type
-order by animal_type;
+SELECT ANIMAL_TYPE, count(ANIMAL_TYPE)
+FROM ANIMAL_INS
+GROUP BY ANIMAL_TYPE
+ORDER BY ANIMAL_TYPE;
