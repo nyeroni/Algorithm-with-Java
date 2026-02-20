@@ -1,17 +1,35 @@
 import java.util.*;
 class Solution {
     public int solution(int[] citations) {
+        // Arrays.sort(citations);
+        int cnt = 1;
+        int max = 0;
+        for(int i : citations) {
+            if(max <= i) max = i;
+        }
         int answer = 0;
-        Arrays.sort(citations);
-        // 0 1 3 5 6
-        int length = citations.length;
-        while(length > answer) {
-            System.out.println("answer : " + answer);
-            if(citations[length - answer-1] <= answer) {
-                break;
+        while(true) {
+            if(max < cnt) break;
+            // System.out.println("i : " + cnt);
+            if(count(citations, cnt)) {
+                answer = cnt;
             }
-            answer ++;
+            cnt ++;
         }
         return answer;
+    }
+    private boolean count(int [ ] citations, int n) {
+        int cnt = 0;
+        int len = citations.length;
+        for(int i : citations) {
+            if(n <= i) {
+                cnt ++;
+            }
+        }
+        // System.out.println("cnt : " +  cnt);
+        if(cnt >= n && len - cnt < n) {
+            return true;
+        }
+        return false;
     }
 }
