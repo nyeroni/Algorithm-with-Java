@@ -1,4 +1,4 @@
-SELECT animal_id, name
-from animal_ins
-where name like "%el%" and animal_type = "dog"
-order by name asc;
+SELECT ANIMAL_ID, NAME
+FROM ANIMAL_INS
+WHERE (name like '%el%' OR name like '%EL%') AND ANIMAL_TYPE = 'Dog'
+ORDER BY NAME;
