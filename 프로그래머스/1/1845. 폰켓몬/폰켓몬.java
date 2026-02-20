@@ -1,15 +1,12 @@
 import java.util.*;
 class Solution {
     public int solution(int[] nums) {
-        int answer = 0;
-        int length = nums.length;
-        int []newNums = Arrays.stream(nums).distinct().toArray();
-        if(newNums.length >= length/2) {
-            answer = length/2;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0; i<nums.length; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
         }
-        else {
-            answer = newNums.length;
-        }
-        return answer;
+        int n = nums.length / 2;
+        if(map.size() >= n) return n;
+        return map.size();
     }
 }
