@@ -2,49 +2,43 @@ import java.util.*;
 
 class Solution {
     public int solution(String begin, String target, String[] words) {
-        int cnt = 0;
         boolean flag = false;
-        Queue<String> queue = new LinkedList<>();
-        boolean []visited = new boolean[words.length];
-        for(int i=0; i<words.length; i++) {
-            if(words[i].equals(target)) {
-                flag = true;
-            }
+        for(String s : words) {
+            if(s.equals(target)) flag = true;
         }
         if(!flag) return 0;
+        Queue<String> queue = new LinkedList<>();
+        boolean[] visited = new boolean[words.length];
         queue.offer(begin);
-        flag = false;
+        int answer = 0;
         while(!queue.isEmpty()) {
-            String now = queue.poll();
-            if(check(now, target)) {
-                flag = true;
-                cnt ++;
+            String str = queue.poll();
+            System.out.println("str : " + str);
+            if(check(str, target)) {
+                answer ++;
                 break;
             }
             for(int i=0; i<words.length; i++) {
-                if(!visited[i]) {
-                    if(check(now, words[i])) {
-                        visited[i] = true;
-                        cnt ++;
-                        queue.offer(words[i]);
-                        break;
-                    }
+                System.out.println("for");
+                if(visited[i]) continue;
+                if(check(str, words[i])) {
+                    queue.offer(words[i]);
+                    answer ++;
+                    visited[i] = true;
+                    break;
                 }
             }
         }
-        if(!flag) return 0;
-        return cnt;
+        return answer;
     }
-    private boolean check(String s, String target) {
+    private boolean check(String a, String b) {
         int cnt = 0;
-        for(int i=0; i<s.length(); i++) {
-            if(s.charAt(i) == target.charAt(i)) {
-                cnt ++;
+        for(int i=0; i<a.length(); i++) {
+            if(a.charAt(i) == b.charAt(i)) {
+                cnt++;
             }
         }
-        if(cnt == s.length()-1) {
-            return true;
-        }
+        if(cnt == a.length()-1) return true;
         return false;
     }
 }
