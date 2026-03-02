@@ -1,21 +1,18 @@
 class Solution {
     public int solution(String[] babbling) {
+        String[] impossible = {"ayaaya", "yeye", "woowoo", "mama"};
+        String[] possible = {"aya", "ye", "woo", "ma"};
         int answer = 0;
-        String [] possible = {"aya", "ye", "woo", "ma"};
-        String [] impossible = {"ayaaya", "yeye", "woowoo", "mama"};
-        for(String str : babbling) {
+        for(String s : babbling) {
             for(String i : impossible) {
-                str = str.replace(i, "X");
-            } 
+                s = s.replace(i, "X");
+            }
             for(String p : possible) {
-                str = str.replace(p, "O");
+                s = s.replace(p, "O");
             }
             boolean flag = false;
-            for(int i=0; i<str.length(); i++) {
-                if(str.charAt(i) != 'O') {
-                    flag = true;
-                    break;
-                }
+            for(char c : s.toCharArray()) {
+                if(c != 'O') flag = true;
             }
             if(!flag) answer ++;
         }
