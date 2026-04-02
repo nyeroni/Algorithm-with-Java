@@ -3,21 +3,19 @@ import java.util.stream.*;
 
 class Solution {
     public int solution(int[] scoville, int K) {
-        int answer = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
         for(int i=0; i<scoville.length; i++) {
-            pq.offer(scoville[i]);
+            queue.add(scoville[i]);
         }
-        
-        while(true) {
-            if(pq.peek() >= K) break;
-            if(pq.size() < 2) return -1;
-            int n = pq.poll();
-            int m = pq.poll();
-            int b = n + m * 2;
-            pq.offer(b);
+        int answer = 0;
+        while(queue.size() >= 2 && queue.peek() < K) {
+            int a = queue.poll();
+            int b = queue.poll();
+            int c = a + b * 2;
+            queue.add(c);
             answer ++;
         }
+        if(queue.peek() < K) answer = -1;
         return answer;
     }
 }
