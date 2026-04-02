@@ -1,15 +1,14 @@
 import java.util.*;
 class Solution {
     public int[] solution(int[] numbers) {
+        int []answer = new int[numbers.length];
+        Arrays.fill(answer, -1);
         Stack<Integer> stack = new Stack<>();
-        int[] answer = new int[numbers.length];
-        for(int i=numbers.length-1; i>=0; i--) {
-            int now = numbers[i];
-            while(!stack.isEmpty() && stack.peek() <= now) {
-                stack.pop();
+        for(int i=0; i<numbers.length; i++) {
+            while(!stack.isEmpty() && numbers[stack.peek()] < numbers[i]) {
+                answer[stack.pop()] = numbers[i];
             }
-            answer[i] = stack.isEmpty() ? -1 : stack.peek();
-            stack.push(now);
+            stack.push(i);
         }
         return answer;
     }
