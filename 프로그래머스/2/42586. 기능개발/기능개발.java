@@ -1,37 +1,39 @@
 import java.util.*;
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
+        List<Integer> answer = new ArrayList<>();
         Queue<Integer> queue = new LinkedList<>();
-        List<Integer> list = new ArrayList<>();
-        int a = 0;
-        int b = 0;
-        int answer = 0;
+        int ans = 0;
         for(int i=0; i<progresses.length; i++) {
-            int n = 100 - progresses[i];
-            int tmp = 0;
-            if(n % speeds[i] == 0) {
-                tmp = n / speeds[i];
-            } else tmp = n / speeds[i] + 1;
-            if(!queue.isEmpty() && queue.peek() < tmp) {
+            int num = 0;
+            if((100 - progresses[i]) % speeds[i] == 0) {
+                num = (100 - progresses[i]) / speeds[i];
+            } else {
+                num = (100 - progresses[i]) / speeds[i] + 1;
+            }
+            System.out.println("num : " + num);
+            if(!queue.isEmpty() && queue.peek() < num) {
                 while(!queue.isEmpty()) {
                     queue.poll();
-                    answer ++;
+                    ans ++;
                 }
-                list.add(answer);
-                answer = 0;
-                queue.add(tmp);
-            } else {
-                queue.add(tmp);
+                answer.add(ans);
+                ans = 0;
+                queue.offer(num);
             }
+            else {
+                queue.offer(num);
+            }
+            
         }
-        answer = 0;
+        ans = 0;
         if(!queue.isEmpty()) {
             while(!queue.isEmpty()) {
                 queue.poll();
-                answer ++;
+                ans ++;
             }
         }
-        list.add(answer);
-        return list.stream().mapToInt(i->i).toArray();
+        answer.add(ans);
+        return answer.stream().mapToInt(i->i).toArray();
     }
 }
