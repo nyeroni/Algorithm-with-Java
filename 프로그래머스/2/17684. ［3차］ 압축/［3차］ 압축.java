@@ -1,40 +1,29 @@
 import java.util.*;
 class Solution {
-    static List<Integer> ans = new ArrayList<>();
-    static List<String> list = new ArrayList<>();
+    static Map<String, Integer> map = new HashMap<>();
+    static List<Integer> list = new ArrayList<>();
     public int[] solution(String msg) {
-        int[] answer;
-        String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        
-        for(int i=0; i<alpha.length(); i++) {
-            list.add(String.valueOf(alpha.charAt(i)));
+        int idx = 1;
+        for(int i=0; i<26; i++) {
+           String c = String.valueOf((char)('A' + i));
+           map.put(c, idx);
+           idx ++;
         }
-        
-        int i=0,j=1;
-        String tmp = "";
-        while(i<msg.length()) {
-            tmp = msg.substring(i, j);
-            if(!checkList(tmp)) {
-                list.add(tmp);
-                ans.add(list.indexOf(msg.substring(i, j-1)) + 1);
-                i = j-1;
-                j=i+1;
-            }
-            else {
+        int i = 0;
+        while(i < msg.length()) {
+            String w = String.valueOf(msg.charAt(i));
+            int j = i+1;
+            while(j <= msg.length() && map.containsKey(msg.substring(i, j))) {
+                w = msg.substring(i, j);
                 j++;
             }
-            if(j>msg.length()) {
-                break;
+            list.add(map.get(w));
+            if(j <= msg.length()) {
+                map.put(msg.substring(i, j), idx++);
             }
+            i += w.length();
         }
-        ans.add(list.indexOf(tmp) + 1);
-        answer = ans.stream().mapToInt(k->k).toArray();
-        return answer;
-    }
-    private boolean checkList(String str) {
-        if(list.contains(str)) {
-            return true;
-        }
-        return false;
+        
+        return list.stream().mapToInt(k->k).toArray();
     } 
 }
