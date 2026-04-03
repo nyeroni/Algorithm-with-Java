@@ -1,31 +1,35 @@
 import java.util.*;
 import java.util.stream.*;
 class Solution {
-    Map<String, PriorityQueue<String>> answer = new HashMap<>();
+    static Map<String, List<String>> map;
+    static List<String> answer;
     public String[] solution(String[][] tickets) {
-        
+        map = new HashMap<>();
+        answer = new ArrayList<>();
         for(int i=0; i<tickets.length; i++) {
-            if(!answer.containsKey(tickets[i][0])) {
-                answer.put(tickets[i][0], new PriorityQueue<>());
-            }
-            answer.get(tickets[i][0]).offer(tickets[i][1]);
+            if(!map.containsKey(tickets[i][0])) {
+                map.put(tickets[i][0], new ArrayList<String>());
+            } 
+            map.get(tickets[i][0]).add(tickets[i][1]);
         }
-        return dfs(new ArrayList<>(), "ICN").toArray(new String[0]);
         
+        for(String key : map.keySet()) {
+            Collections.sort(map.get(key), Collections.reverseOrder());
+        }
+        dfs("ICN");
+        
+        Collections.reverse(answer);
+        return answer.toArray(new String[0]);
     }
-    public List<String> dfs (List<String> list, String world) {
-        if(!answer.containsKey(world) || answer.get(world).size() == 0) {
-            list.add(world);
-            return list;
+    public void dfs(String cur) {
+
+        if(map.containsKey(cur)) {
+            List<String> list = map.get(cur);
+            while(!list.isEmpty()) {
+                String tmp = list.remove(list.size()-1);
+                dfs(tmp);
+            }
         }
-        list.add(world);
-        List<String> a = dfs(new ArrayList<>(), answer.get(world).poll());
-        if(!answer.get(world).isEmpty()) {
-            List<String> b = dfs(new ArrayList<>(), answer.get(world).poll());
-            list.addAll(b);
-        } 
-        list.addAll(a);
-        return list;
-        
+        answer.add(cur);
     }
 }
