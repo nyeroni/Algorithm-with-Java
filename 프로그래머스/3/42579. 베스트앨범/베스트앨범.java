@@ -1,46 +1,39 @@
 import java.util.*;
 class Solution {
-    class Music {
+    static class Song{
         int idx;
-        // boolean visited;
-        String genre;
         int play;
-        
-        public Music(int idx, String genre, int play) {
+        Song(int idx, int play) {
             this.idx = idx;
-            this.genre = genre;
             this.play = play;
         }
     }
-    public int[] solution(String[] genres, int[] plays) {
-        List<Music> list = new ArrayList<>();
-        Map<String, Integer> map = new HashMap<>();
-    
+    public int[] solution(String[] genres, int[] plays) { 
+        Map<String, Integer> genreTotal = new HashMap<>();
+        Map<String, List<Song>> genreSongs = new HashMap<>();
         for(int i=0; i<genres.length; i++) {
-            Music m = new Music(i, genres[i], plays[i]);
-            list.add(m);
-            map.put(genres[i], map.getOrDefault(genres[i], 0) + plays[i]);
+            genreTotal.put(genres[i], genreTotal.getOrDefault(genres[i], 0) + plays[i]);
+            if(!genreSongs.containsKey(genres[i]))
+                genreSongs.put(genres[i], new ArrayList<>());
+            genreSongs.get(genres[i]).add(new Song(i, plays[i]));
         }
-        Collections.sort(list, (a, b) -> (b.play-a.play));
-        List<Map.Entry<String, Integer>> genresList = new ArrayList<>(map.entrySet());
-        Collections.sort(genresList, (a, b)->(b.getValue()-a.getValue()));
+        
+        List<String> genreList = new ArrayList<>(genreTotal.keySet());
+        genreList.sort((a, b) -> genreTotal.get(b) - genreTotal.get(a));
+        
         List<Integer> answer = new ArrayList<>();
-        for(int i=0; i<genresList.size(); i++) {
-            int cnt=0;
-            for(int j=0; j<list.size(); j++){
-                // if(list.get(j).visited) continue;
-                if(list.get(j).genre.equals(genresList.get(i).getKey())) {
-                    answer.add(list.get(j).idx);
-                    cnt++;
-                    // list.get(j).visited = true;
+        for(String genre : genreList) {
+            List<Song> songs = genreSongs.get(genre);
+            songs.sort((a, b) -> {
+                if(b.play == a.play) {
+                    return a.idx - b.idx;
                 }
-                if(cnt == 2) {
-                    break;
-                }
+                return b.play - a.play;
+            });
+            for(int i=0; i<Math.min(2, songs.size()); i++) {
+                answer.add(songs.get(i).idx);
             }
         }
-        
-        
         return answer.stream().mapToInt(i->i).toArray();
     }
 }
