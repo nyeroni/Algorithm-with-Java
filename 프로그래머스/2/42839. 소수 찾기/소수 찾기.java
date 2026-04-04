@@ -1,38 +1,35 @@
 import java.util.*;
 
 class Solution {
-    HashSet<Integer> set = new HashSet<>();
-    boolean []visited = new boolean[7];
+    Set<Integer> set = new HashSet<>();
+    boolean[] visited;
     public int solution(String numbers) {
-        int cnt=0;
-        dfs(numbers, "", 0);
+        visited = new boolean[numbers.length()];
+        dfs("", numbers);
         
-        for(Integer i : set) {
-            if(isPrime(i)) cnt++;
+        int cnt = 0;
+        for(int num : set) {
+            if(isPrime(num)) cnt ++;
         }
         return cnt;
     }
-    public void dfs(String numbers, String s, int depth){
-        if(numbers.length() < depth) return;
+    private void dfs(String current, String numbers) {
+        if(!current.equals("")) {
+            set.add(Integer.parseInt(current));
+        }
         for(int i=0; i<numbers.length(); i++) {
             if(!visited[i]) {
                 visited[i] = true;
-                set.add(Integer.parseInt(s + numbers.charAt(i)));
-                dfs(numbers, s + numbers.charAt(i), depth + 1);
+                dfs(current + numbers.charAt(i), numbers);
                 visited[i] = false;
             }
         }
     }
-    private boolean isPrime(int n) {
-        if(n==0) return false;
-        if(n==1) {
-            return false;
-        } 
-        if(n==2)return true;
-        for(int i=2; i<=Math.sqrt(n); i++) {
-            if(n%i == 0) {
-                return false;
-            }
+    private boolean isPrime(long num) {
+        if(num < 2) return false;
+        if(num == 2 || num == 3) return true;
+        for(int i=2; i<=Math.sqrt(num); i++)  {
+            if(num % i == 0) return false;
         }
         return true;
     }
