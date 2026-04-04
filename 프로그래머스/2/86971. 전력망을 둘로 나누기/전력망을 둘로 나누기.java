@@ -1,50 +1,44 @@
 import java.util.*;
-
 class Solution {
-    static int[][] arr;
+    static boolean[][] graph;
+    static boolean[] visited;
+    static int count;
     public int solution(int n, int[][] wires) {
-        int answer = n;
+        int answer = Integer.MAX_VALUE;
+        graph = new boolean[n+1][n+1];
         
-        arr = new int[n+1][n+1];
-        
-        for(int i=0; i<wires.length; i++) {
-            arr[wires[i][0]][wires[i][1]] = 1;
-            arr[wires[i][1]][wires[i][0]] = 1;
+        for(int[] wire : wires) {
+            int a = wire[0];
+            int b = wire[1];
+            
+            graph[a][b] = true;
+            graph[b][a] = true;
         }
         
-        int a, b;
-        for(int i=0; i<wires.length; i++) {
-            a = wires[i][0];
-            b = wires[i][1];
+        for(int[] wire : wires) {
+            int a = wire[0];
+            int b = wire[1];  
             
-            arr[a][b] = 0;
-            arr[b][a] = 0;
+            graph[a][b] = false;
+            graph[b][a] = false;
+
+            visited = new boolean[n+1];
+            count = 0;
+            dfs(1, n);
+            answer = Math.min(answer, Math.abs(count - (n - count)));
             
-            answer = Math.min(answer, bfs(n, a));
-            
-            arr[a][b] = 1;
-            arr[b][a] = 1;
+            graph[a][b] = true;
+            graph[b][a] = true;
         }
         return answer;
     }
-    private int bfs (int n, int a) {
-        boolean []visited = new boolean[n+1];
-        Queue<Integer> queue = new LinkedList<>();
-        queue.offer(a);
-        visited[a] = true;
-        int cnt = 1;
-        while(!queue.isEmpty()) {
-            int now = queue.poll();
-            visited[now] = true;
-            for(int i=1; i<=n; i++) {
-                if(!visited[i]) {
-                    if(arr[now][i] == 1) {
-                        cnt ++;
-                        queue.offer(i);
-                    }
-                }
+    private void dfs(int node, int n) {
+        visited[node] = true;
+        count ++;
+        for(int next = 1; next <= n; next ++) {
+            if(graph[node][next] && !visited[next]) {
+                dfs(next, n);
             }
         }
-        return (int) Math.abs(n - 2 * cnt);
     }
 }
