@@ -1,19 +1,22 @@
 import java.util.*;
 
 class Solution {
+    static List<String> list = new ArrayList<>();
+    static String[] vowels = {"A", "E", "I", "O", "U"};
     public int solution(String word) {
-        int answer = 0;
-        List<String> list = new ArrayList<>();
-        makeWord("", list);
-        answer = list.indexOf(word);
-        return answer;
+       dfs("");
+        for(int i=0; i<list.size(); i++) {
+            if(list.get(i).equals(word)) return i+1;
+        }
+        return 0;
     }
-    private void makeWord(String w, List<String> list) {
-        list.add(w);
-        String[] str = {"A", "E", "I", "O", "U"};
-        if(w.length() == 5) return;
-        for(int i=0; i<str.length; i++) {
-            makeWord(w + str[i], list);
+    private void dfs(String current) {
+        if(current.length() > 5) return;
+        if(!current.equals("")) {
+            list.add(current);
+        }
+        for(String vowel : vowels) {
+            dfs(current + vowel);
         }
     }
 }
