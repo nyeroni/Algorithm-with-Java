@@ -6,7 +6,7 @@ class Solution {
             b = tmp;
         }
         long answer = 0;
-        for(int i = a; i<=b; i++) {
+        for(int i=a; i<=b; i++) {
             answer += i;
         }
         return answer;
