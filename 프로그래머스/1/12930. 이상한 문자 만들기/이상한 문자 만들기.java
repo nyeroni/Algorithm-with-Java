@@ -1,21 +1,19 @@
 class Solution {
     public String solution(String s) {
         s = s.toLowerCase();
+        int k=0;
         StringBuilder sb = new StringBuilder();
-        int idx = 0;
         for(int i=0; i<s.length(); i++) {
-            char c = s.charAt(i);
-            if(c == ' ') {
-                idx = 0;
+            if(s.charAt(i) == ' ') {
+                k = 0;
                 sb.append(" ");
                 continue;
+            } else if(k % 2 == 0) {
+                sb.append(String.valueOf(s.charAt(i)).toUpperCase());
+            } else if (k % 2 == 1) {
+                sb.append(String.valueOf(s.charAt(i)).toLowerCase());
             }
-            if(idx%2==0) {
-                sb.append(Character.toUpperCase(c));
-            } else {
-                sb.append(Character.toLowerCase(c));
-            }
-            idx++;
+            k++;
         }
         return sb.toString();
     }
