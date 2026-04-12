@@ -1,11 +1,10 @@
 class Solution {
     public long solution(int price, int money, int count) {
-        long totalPrice = 0;
-        for(int i=1; i<=count; i++) {
-            totalPrice += price * i;
+        long sum = 0;
+        for(int i=0; i<count; i++) {
+            sum += price * (i+1);
         }
-        long answer = totalPrice - money;
-        if(answer < 0) answer = 0;
-        return answer;
+        
+        return sum - money > 0 ? sum - money : 0;
     }
 }
