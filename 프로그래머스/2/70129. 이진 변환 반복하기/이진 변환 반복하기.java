@@ -1,21 +1,23 @@
 class Solution {
     public int[] solution(String s) {
+        String str = s;
+        int answer = 0;
         int cnt = 0;
-        int remove = 0;
-       
         while(true) {
-            int num = removeZero(s);
-            remove += s.length() - num;
-            s = Integer.toBinaryString(num);
+            if(str.equals("1")) break;
+            int n = removeOne(str);
+            answer += n;
+            int newNum = str.length() - n;
+            str = Integer.toString(newNum, 2);
             cnt ++;
-            if(s.equals("1")) break;
         }
-        return new int[]{cnt, remove};
+        System.out.println("str : " + str);
+        return new int[]{cnt, answer};
     }
-    private int removeZero(String s) {
+    private int removeOne(String s) {
         int cnt = 0;
-        for(char c : s.toCharArray()) {
-            if(c == '1') {
+        for(int i : s.toCharArray()) {
+            if(i == '0') {
                 cnt ++;
             }
         }
