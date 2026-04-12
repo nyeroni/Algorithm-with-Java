@@ -1,10 +1,9 @@
 class Solution {
     public String solution(String s) {
-        int n = s.length();
-        
-        if(n % 2 == 0) {
-            return s.substring(n/2-1, n/2+1);
-        } 
-        return String.valueOf(s.charAt(n/2));
+        int len = s.length();
+        if(len % 2 == 0) {
+            return String.valueOf("" + s.charAt(len/2-1) + s.charAt(len/2)) ;
+        }
+        return String.valueOf(s.charAt(len/2));
     }
 }
