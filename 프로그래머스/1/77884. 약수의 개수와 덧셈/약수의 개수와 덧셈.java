@@ -2,27 +2,22 @@ class Solution {
     public int solution(int left, int right) {
         int answer = 0;
         for(int i=left; i<=right; i++) {
-            int num = cnt(i);
-            System.out.println("num : " + num);
-            if(num % 2 == 0) {
-                answer += i;
-            } else answer -= i;
+            int num = check(i);
+            if(num % 2 == 0) answer += i;
+            else answer -= i;
         }
         return answer;
     }
-    private int cnt(int n) {
-        int count = 0;
-        int mid = (int)Math.sqrt(n);
-        
-        for(int i=1; i<mid; i++) {
-            if(n%i == 0) {
-                count +=2;
+    private int check(int num) {
+        if(num == 1) return 1;
+        else if(num == 2 || num == 3) return 2;
+        int cnt = 0;
+        for(int i=2; i<=(int)Math.sqrt(num); i++) {
+            if(i * i == num) cnt += 1;
+            else if(num % i == 2) {
+                cnt += 2;
             }
         }
-        if(mid * mid == n) {
-            count += 1; 
-        }
-        else count += 2; 
-        return count;
+        return cnt;
     }
 }
