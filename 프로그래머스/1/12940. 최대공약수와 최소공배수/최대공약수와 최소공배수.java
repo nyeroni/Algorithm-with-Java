@@ -1,12 +1,12 @@
 class Solution {
     public int[] solution(int n, int m) {
-        return new int[]{gcd(n, m), lcm(n, m)};
+        return new int[]{GCD(n, m), LCM(n, m)};
     }
-    private int gcd(int a, int b) {
-        if(b == 0) return a;
-        return gcd(b, a%b);
+    public int GCD(int n, int m) {
+        if(m==0) return n;
+        return GCD(m, n%m);
     }
-    private int lcm(int a, int b) {
-        return a * b / gcd(a, b);
+    public int LCM(int n, int m) {
+        return n * m / GCD(n, m);
     }
 }
