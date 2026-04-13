@@ -3,7 +3,7 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         for(int i=1; i<food.length; i++) {
             for(int j=0; j<food[i]/2; j++) {
-                sb.append(i);
+                sb.append(String.valueOf(i));
             }
         }
         String answer = sb.toString();
