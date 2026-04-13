@@ -2,22 +2,16 @@ class Solution {
     public int[] solution(int brown, int yellow) {
         // x * 2 + (y-2) * 2 = brown
         // (x-2) * (y-2) = yellow
-        // x + y - 2 = brown/2
-        // x + y = brown/2 + 2
-        // xy -2x -2y + 4 = yellow
-        // xy = yellow - 4 + 2(x+y)
-        // xy = yellow - 4 + brown + 4
-        // xy = yellow + brown
-        int num = brown + yellow;
-        int x = 1;
-        for(int i=1; i<=Math.sqrt(num); i++) {
-            if(num % i == 0 && i + num/i - 2 == brown / 2) {
-                x = i;
-                break;
+        // brown * yellow 의 약수 1, 2, 3, 4, 6, 12
+        int total = brown + yellow;
+        for(int i=3; i<= Math.sqrt(total); i++) {
+            if(total % i == 0) {
+                if((i-2) * (total/i - 2) == yellow && total/i * 2 + (i-2) * 2 == brown) {
+                    
+                    return new int[]{total/i, i};
+                }
             }
         }
-        x = Math.max(x, num/x);
-        return new int[]{x, num/x};
-        
+        return new int[]{0, 0};
     }
 }
