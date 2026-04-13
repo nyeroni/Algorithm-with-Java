@@ -1,24 +1,19 @@
 import java.util.*;
 class Solution {
     public int[] solution(int n, String[] words) {
-        List<String> list = new ArrayList<>();
-        int a=0, b=0;
-        char c = 'a';
-        for(int i=0; i<words.length; i++) {
-            if(!list.contains(words[i])) {
-                if(i != 0 && c != words[i].charAt(0)) {
-                    a = i%n + 1;
-                    b = i/n + 1;
-                    break;
-                }
-                c = words[i].charAt(words[i].length()-1);
-                list.add(words[i]);
+        List<String> check = new ArrayList<>();
+        check.add(words[0]);
+        for(int i=1; i<words.length; i++) {
+            if(!check.contains(words[i]) && words[i-1].charAt(words[i-1].length()-1) == words[i].charAt(0)) {
+                check.add(words[i]);
             } else {
-                a = i%n + 1;
-                b = i/n + 1;
-                break;
+                int a = (i + 1) % n;
+                int b = (i + 1) / n;
+                if(a != 0) b++;
+                if(a == 0) a = n;
+                return new int[]{a, b};
             }
         }
-        return new int[]{a, b};
+        return new int[]{0, 0};
     }
 }
