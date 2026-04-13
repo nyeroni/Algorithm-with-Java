@@ -8,7 +8,11 @@ class Solution {
                 set.add(numbers[i] + numbers[j]);
             }
         }
-        int[] answer = set.stream().mapToInt(i->i).toArray();
+        int[] answer = new int[set.size()];
+        int i=0;
+        for(int s : set) {
+            answer[i++] = s;
+        }
         Arrays.sort(answer);
         return answer;
     }
