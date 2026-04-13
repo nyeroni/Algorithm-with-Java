@@ -1,28 +1,33 @@
 class Solution {
     public String[] solution(int n, int[] arr1, int[] arr2) {
         String[] answer = new String[n];
-        for(int i=0; i<n; i++) {
-            String map1 = Integer.toBinaryString(arr1[i]);
-            String map2 = Integer.toBinaryString(arr2[i]);
-            StringBuffer sb1 = new StringBuffer(map1);
-            StringBuffer sb2 = new StringBuffer(map2);
-            while(sb1.length() != n) {
-                sb1.insert(0, "0");
-            }
-            while(sb2.length() != n) {
-                sb2.insert(0, "0");
-            }
-            map1 = sb1.toString();
-            map2 = sb2.toString();
-            
-            String ans = "";
-            for(int j=0; j<n; j++) {
-                if(map1.charAt(j) == '1' || map2.charAt(j) == '1') {
-                    ans += "#";
-                } else ans += " ";
-            }
-            answer[i] = ans;
+        for(int i=0; i<arr1.length; i++) {
+            int a = arr1[i];
+            int b = arr2[i];
+            String sa = toBinary(a, n);
+            String sb = toBinary(b, n);
+            answer[i] = calculate(sa, sb, n);
         }
         return answer;
+    }
+    public String toBinary(int num, int n) {
+        String s = Integer.toString(num, 2);
+        StringBuilder sb = new StringBuilder();
+        if(s.length() != n) {
+            for(int i=0; i<n - s.length(); i++) {
+                sb.append("0");
+            }
+        }
+        sb.append(s);
+        return sb.toString();
+    }
+    public String calculate(String a, String b, int n) {
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<n; i++) {
+            if(a.charAt(i) == '1' || b.charAt(i) == '1') {
+                sb.append("#");
+            } else sb.append(" ");
+        }
+        return sb.toString();
     }
 }
