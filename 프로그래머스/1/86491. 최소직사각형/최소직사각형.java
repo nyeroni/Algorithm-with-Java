@@ -3,12 +3,9 @@ class Solution {
         int maxX = 0;
         int maxY = 0;
         for(int[] size : sizes) {
-            int max = Math.max(size[0], size[1]);
-            int min = Math.min(size[0], size[1]);
-            if(max > maxX) maxX = max;
-            if(min > maxY) maxY = min;
+            maxX = Math.max(Math.max(size[0], size[1]), maxX);
+            maxY = Math.max(Math.min(size[0], size[1]), maxY);
         }
-        
         return maxX * maxY;
     }
 }
