@@ -1,20 +1,21 @@
 class Solution {
     public int solution(int n) {
-        int answer = 1;
-        for(int i=1; i<=n/2; i++) {
-            int idx = i;
-            int sum = 0;
-            while(true) {
-                sum += idx;
-                idx ++;
+        int i=2;
+        int remove = 1;
+        int sum = 1;
+        int answer = 0;
+        while(sum > 0) {
+            if(sum + i <= n) {
+                sum += i;
+                i++;
                 if(sum == n) {
                     answer ++;
-                    break;
-                } else if(sum > n) {
-                    break;
                 }
+            } else if(sum + i > n) {
+                sum -= remove;
+                remove ++;
             }
         }
-        return answer;
+        return answer + 1;
     }
 }
