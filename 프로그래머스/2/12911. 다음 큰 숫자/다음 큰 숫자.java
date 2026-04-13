@@ -1,13 +1,9 @@
 class Solution {
     public int solution(int n) {
-        String s = Integer.toBinaryString(n);
-        int num = countOne(s);
+        String s = Integer.toString(n, 2);
+        int cnt = countOne(s);
         while(true) {
-           n++;
-            s = Integer.toBinaryString(n);
-            if(num == countOne(s)) {
-                break;
-            }
+            if(cnt == countOne(Integer.toString(++n, 2))) break;
         }
         return n;
     }
