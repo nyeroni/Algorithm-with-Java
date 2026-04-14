@@ -2,44 +2,33 @@ import java.util.*;
 
 class Solution {
     public int solution(String s) {
-        int answer = 0;
-        if(check(s)) answer ++;
-        for(int i=1; i<s.length(); i++){
+        int count = 0;
+        if(isCheck(s)) count ++;
+        for(int i=1; i<s.length(); i++) {
             char c = s.charAt(0);
             s = s.substring(1, s.length());
             s += c;
-            if(check(s)) answer ++;
+            if(isCheck(s)) count ++;
         }
-        return answer;
+        return count;
     }
-    private boolean check(String s) {
-        Stack<Character> stack = new Stack<>();
-        for(char c : s.toCharArray()) {
-            if(c == '[') {
-                stack.push('[');
-            } 
-            if(c == '(') {
-                stack.push('(');
-            }
-            if(c == '{') {
-                stack.push('{');
-            }
-            if(c == ']') {
-                if(!stack.isEmpty() && stack.peek() == '[') {
+    public boolean isCheck(String s) {
+        Stack<String> stack = new Stack<>();
+        for(int i=0; i<s.length(); i++) {
+            if(s.charAt(i) == ')') {
+                if(!stack.isEmpty() && stack.peek().equals("(")) {
                     stack.pop();
                 } else return false;
-            }
-            if(c == ')') {
-               if(!stack.isEmpty() && stack.peek() == '(') {
+            } else if(s.charAt(i) == '}') {
+                if(!stack.isEmpty() && stack.peek().equals("{")) {
                     stack.pop();
-                }
-                else return false;
-            }
-            if(c == '}') {
-                if(!stack.isEmpty() && stack.peek() == '{') {
+                } else return false;
+            } else if(s.charAt(i) == ']') {
+                if(!stack.isEmpty() && stack.peek().equals("[")) {
                     stack.pop();
-                }
-                else return false;  
+                } else return false;
+            } else {
+                stack.push(String.valueOf(s.charAt(i)));
             }
         }
         if(stack.isEmpty()) return true;
