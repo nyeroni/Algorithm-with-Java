@@ -1,20 +1,17 @@
 import java.util.*;
 class Solution {
     public int solution(int[] topping) {
-        int answer = 0;
-        Map<Integer, Integer> mapA = new HashMap<>();
-        Map<Integer, Integer> mapB = new HashMap<>();
+        Map<Integer, Integer> A = new HashMap<>();
+        Map<Integer, Integer> B = new HashMap<>();
         for(int i=0; i<topping.length; i++) {
-            mapB.put(topping[i], mapB.getOrDefault(topping[i], 0) + 1);
+            B.put(topping[i], B.getOrDefault(topping[i], 0) + 1);
         }
+        int answer = 0;
         for(int i=0; i<topping.length; i++) {
-            mapA.put(topping[i], mapA.getOrDefault(topping[i], 0) + 1);
-            if(mapB.get(topping[i]) == 1) {
-                mapB.remove(topping[i]);
-            } else {
-                mapB.put(topping[i], mapB.getOrDefault(topping[i], 0)-1);
-            }
-            if(mapA.size() == mapB.size()) answer++;
+            A.put(topping[i], A.getOrDefault(topping[i], 0) + 1);
+            if(B.get(topping[i]) == 1) B.remove(topping[i]);
+            else B.put(topping[i], B.getOrDefault(topping[i], 0) - 1);
+            if(A.size() == B.size()) answer++;
         }
         return answer;
     }
