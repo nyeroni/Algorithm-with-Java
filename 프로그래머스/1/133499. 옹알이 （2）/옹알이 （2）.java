@@ -1,20 +1,27 @@
 class Solution {
     public int solution(String[] babbling) {
-        String[] impossible = {"ayaaya", "yeye", "woowoo", "mama"};
         String[] possible = {"aya", "ye", "woo", "ma"};
+        String[] impossible = {"ayaaya", "yeye", "woowoo", "mama"};
+        
+        boolean flag = false;
         int answer = 0;
-        for(String s : babbling) {
+        for(String b : babbling) {
+            flag = false;
             for(String i : impossible) {
-                s = s.replace(i, "X");
+                b = b.replace(i, "X");
             }
+            if(flag) continue;
             for(String p : possible) {
-                s = s.replace(p, "O");
+                b = b.replace(p, "O");
             }
-            boolean flag = false;
-            for(char c : s.toCharArray()) {
-                if(c != 'O') flag = true;
+            for(char c : b.toCharArray()) {
+                if(c != 'O') {
+                    flag = true;
+                }
             }
-            if(!flag) answer ++;
+            if(!flag) {
+                answer++;
+            }
         }
         return answer;
     }
