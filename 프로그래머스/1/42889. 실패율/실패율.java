@@ -1,40 +1,42 @@
 import java.util.*;
 class Solution {
-    static class Stage{
-        int number;
-        Double failRate;
-        
-        Stage(int number, Double failRate) {
-            this.number = number;
-            this.failRate = failRate;
+    static class Game{
+        int idx;
+        double fail;
+        Game(int idx, double fail) {
+            this.idx = idx;
+            this.fail = fail;
         }
     }
     public int[] solution(int N, int[] stages) {
-        int[] stuck = new int[N+2];
-        for(int s : stages) {
-            stuck[s] ++;
-        }
-        // 0 1 3 2 1 0 1
-        int players = stages.length;
-        List<Stage> list = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> answer = new ArrayList<>();
+        List<Game> list = new ArrayList<>();
+        int member = stages.length;
+        for(int i=0; i<stages.length; i++) {
+            map.put(stages[i], map.getOrDefault(stages[i], 0) + 1);
+        } 
         for(int i=1; i<=N; i++) {
-            double failRate = 0;
-            if(players > 0) {
-                failRate = (double) stuck[i] / players;
-            }
-            list.add(new Stage(i, failRate));
-            players -= stuck[i];
+            int count = map.getOrDefault(i, 0);
+            // System.out.println("map.getOrDefault(i) : " + map.getOrDefault(i, 0) + ", member : " + member);
+            if(member > 0) list.add(new Game(i, (double) map.getOrDefault(i, 0) / member));
+            else list.add(new Game(i, 0.0));
+            member -= count;
         }
-        list.sort((a, b) -> {
-            if(a.failRate == b.failRate) {
-                return a.number - b.number;
+        Collections.sort(list, new Comparator<>() {
+            public int compare(Game a, Game b) {
+                if(b.fail==a.fail) {
+                    return 0;
+                }
+                else if(b.fail < a.fail) {
+                    return -1;
+                } else return 1;
             }
-            return Double.compare(b.failRate, a.failRate);
         });
-        int[] answer = new int[N];
-        for(int i=0; i<N; i++) {
-            answer[i] = list.get(i).number;
+        for(Game g : list) {
+            answer.add(g.idx);
+            // System.out.println("g.idx : " + g.idx + ", g.fail : " + g.fail);
         }
-        return answer;
+        return answer.stream().mapToInt(i->i).toArray();
     }
 }
