@@ -2,35 +2,22 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String[] operations) {
-        PriorityQueue<Integer> minQueue = new PriorityQueue<>();
-        PriorityQueue<Integer> maxQueue = new PriorityQueue<>(Collections.reverseOrder());
-
-        for(int i=0; i<operations.length; i++) {
-            if(operations[i].startsWith("I")) {
-                int num = Integer.parseInt(operations[i].split(" ")[1]);
-                minQueue.offer(num);
-                maxQueue.offer(num);
+        PriorityQueue<Integer> A = new PriorityQueue<>();
+        PriorityQueue<Integer> B = new PriorityQueue<>(Collections.reverseOrder());
+        for(String s : operations) {
+            if(s.equals("D 1")) {
+                A.remove(B.poll());
+            } else if(s.equals("D -1")) {
+                B.remove(A.poll());
             } else {
-                if(operations[i].equals("D 1") && !maxQueue.isEmpty()) {
-                    int max = maxQueue.poll();
-                    minQueue.remove(max);
-            }
-                else if(operations[i].equals("D -1") && !minQueue.isEmpty()) {
-                    int min = minQueue.poll();
-                    maxQueue.remove(min);
-                }
+                s = s.substring(2);
+                int num = Integer.parseInt(s);
+                A.offer(num);
+                B.offer(num);
             }
         }
-          
-        if(minQueue.size() == 0) {
+        if(A.isEmpty()) 
             return new int[]{0, 0};
-        } else if(minQueue.size() == 1) {
-            int num = minQueue.poll();
-            return new int[]{num, num};
-        } else {
-            int max = maxQueue.poll();
-            int min = minQueue.poll();
-            return new int[]{max, min};
-        }
+        return new int[]{B.poll(), A.poll()};
     }
 }
