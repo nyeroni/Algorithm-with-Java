@@ -1,22 +1,22 @@
 import java.util.*;
 
 class Solution {
+    static String[] str = {"A", "E", "I", "O", "U"};
     static List<String> list = new ArrayList<>();
-    static String[] vowels = {"A", "E", "I", "O", "U"};
     public int solution(String word) {
-       dfs("");
+        dfs("");
         for(int i=0; i<list.size(); i++) {
             if(list.get(i).equals(word)) return i+1;
         }
         return 0;
     }
-    private void dfs(String current) {
-        if(current.length() > 5) return;
-        if(!current.equals("")) {
-            list.add(current);
+    public void dfs(String word) {
+        if(word.length() > 5) {
+            return;
         }
-        for(String vowel : vowels) {
-            dfs(current + vowel);
+        if(!word.equals("")) list.add(word);
+        for(String s : str) {
+            dfs(word + s);
         }
     }
 }
