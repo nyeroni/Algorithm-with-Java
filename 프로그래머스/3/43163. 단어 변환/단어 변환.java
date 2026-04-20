@@ -1,33 +1,37 @@
 import java.util.*;
 
 class Solution {
-    static class Node {
+    static class Word {
         String word;
-        int count;
-        Node(String word, int count) {
+        int depth;
+        Word(String word, int depth) {
             this.word = word;
-            this.count = count;
+            this.depth = depth;
         }
     }
     public int solution(String begin, String target, String[] words) {
-        boolean flag = false;
-        for(String s : words) {
-            if(target.equals(s)) {
-                flag = true;
+        boolean exists = false;
+        for(String word : words) {
+            if(word.equals(target)) {
+                exists = true;
                 break;
             }
         }
-        if(!flag) return 0;
+        if(!exists) return 0;
         
         boolean[] visited = new boolean[words.length];
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(new Node(begin, 0));
+        Queue<Word> queue = new LinkedList<>();
+        queue.offer(new Word(begin, 0));
+        
         while(!queue.isEmpty()) {
-            Node current = queue.poll();
-            if(current.word.equals(target)) return current.count;
+            Word current = queue.poll();
+            if(current.word.equals(target)) {
+                return current.depth;
+            }
             for(int i=0; i<words.length; i++) {
                 if(!visited[i] && check(words[i], current.word)) {
-                    queue.offer(new Node(words[i], current.count + 1));
+                    visited[i] = true;
+                    queue.offer(new Word(words[i], current.depth + 1));
                 }
             }
         }
