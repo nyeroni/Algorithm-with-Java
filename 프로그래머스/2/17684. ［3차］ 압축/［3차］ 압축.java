@@ -1,29 +1,33 @@
 import java.util.*;
 class Solution {
-    static Map<String, Integer> map = new HashMap<>();
-    static List<Integer> list = new ArrayList<>();
     public int[] solution(String msg) {
-        int idx = 1;
+        Map<String, Integer> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
         for(int i=0; i<26; i++) {
-           String c = String.valueOf((char)('A' + i));
-           map.put(c, idx);
-           idx ++;
+            map.put(String.valueOf((char)('A' + i)), i+1);
         }
-        int i = 0;
-        while(i < msg.length()) {
-            String w = String.valueOf(msg.charAt(i));
-            int j = i+1;
-            while(j <= msg.length() && map.containsKey(msg.substring(i, j))) {
-                w = msg.substring(i, j);
+        int j;
+        for(int i=0; i<msg.length(); i++) {
+            String tmp = msg.charAt(i) + "";
+            j = i+1;
+            while(true) {
+                if(!map.containsKey(tmp)) {
+                    map.put(tmp, map.size() + 1);
+                    list.add(map.get(tmp.substring(0, tmp.length()-1)));
+                    i += (j - i - 2);
+                    break;
+                } else if(j == msg.length()) {
+                    list.add(map.get(tmp));
+                    i += (j - i - 1);
+                    break;
+                }
+                if(j > msg.length()) {
+                    break;
+                }
+                tmp += msg.charAt(j);
                 j++;
             }
-            list.add(map.get(w));
-            if(j <= msg.length()) {
-                map.put(msg.substring(i, j), idx++);
-            }
-            i += w.length();
         }
-        
-        return list.stream().mapToInt(k->k).toArray();
+        return list.stream().mapToInt(i->i).toArray();
     } 
 }
