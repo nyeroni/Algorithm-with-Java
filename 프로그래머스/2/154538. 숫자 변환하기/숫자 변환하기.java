@@ -1,26 +1,26 @@
 import java.util.*;
 class Solution {
     public int solution(int x, int y, int n) {
-        int cnt = 0;
         Queue<int[]> queue = new LinkedList<>();
-        boolean[] visited = new boolean[1000000*3];
         queue.offer(new int[]{x, 0});
+        boolean[] visited = new boolean[y+1];
         while(!queue.isEmpty()) {
-            int []now = queue.poll();
-            if(now[0] == y) {
-                return now[1];
+            int[]now = queue.poll();
+            if(now[0] == y) return now[1];
+            int a = now[0] + n;
+            int b = now[0] * 2;
+            int c = now[0] * 3;
+            if(a <= y && !visited[a]) {
+                visited[a] = true;
+                queue.offer(new int[]{a, now[1] + 1});
             }
-            if(!visited[now[0] + n] && now[0] + n <= y) {
-                visited[now[0] + n] = true;
-                queue.offer(new int[]{now[0] + n, now[1] + 1});
+            if(b <= y && !visited[b]) {
+                visited[b] = true;
+                queue.offer(new int[]{b, now[1] + 1});
             }
-             if(!visited[now[0] * 2] && now[0] * 2 <= y) {
-                visited[now[0] * 2] = true;
-                queue.offer(new int[]{now[0] * 2, now[1] + 1});
-            }
-            if(!visited[now[0] * 3] && now[0] * 3 <= y) {
-                visited[now[0] * 3] = true;
-                queue.offer(new int[]{now[0] * 3, now[1] + 1});
+            if(c <= y && !visited[c]) {
+                visited[c] = true;
+                queue.offer(new int[]{c, now[1] + 1});
             }
         }
         return -1;
