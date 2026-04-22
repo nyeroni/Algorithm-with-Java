@@ -4,38 +4,28 @@ class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
         Arrays.sort(lost);
         Arrays.sort(reserve);
-        
-        List<Integer> lostList = new ArrayList<>();
-        List<Integer> reserveList = new ArrayList<>();
-        
+        int[] student = new int[n+1];
         for(int l : lost) {
-            if(!contains(reserve, l)) {
-                lostList.add(l);
-            }
+            student[l] --;
         }
         for(int r : reserve) {
-            if(!contains(lost, r)) {
-                reserveList.add(r);
+            student[r] ++;
+        }
+        for(int i=1; i<=n; i++) {
+            if(student[i] < 0) {
+                if(i > 1 && student[i-1] > 0) {
+                    student[i-1]--;
+                    student[i] ++;
+                } else if(i < n && student[i+1] > 0) {
+                    student[i+1] --;
+                    student[i] ++;
+                }
             }
         }
-        
-        int attend = n - lostList.size();
-        
-        for(int l : lostList) {
-            if(reserveList.contains(l-1)) {
-                reserveList.remove(Integer.valueOf(l-1));
-                attend ++;
-            } else if(reserveList.contains(l+1)) {
-                reserveList.remove(Integer.valueOf(l+1));
-                attend ++;
-            }
+        int answer = 0;
+        for(int i=1; i<=n; i++) {
+            if(student[i] >= 0) answer++;
         }
-        return attend;
-    }
-    private boolean contains(int[] arr, int value) {
-        for(int i : arr) {
-            if(i==value) return true;
-        }
-        return false;
+        return answer;
     }
 }
