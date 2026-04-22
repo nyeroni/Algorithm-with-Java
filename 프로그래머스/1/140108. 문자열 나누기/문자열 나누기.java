@@ -1,27 +1,32 @@
 class Solution {
     public int solution(String s) {
-        int answer = 0;
-        char c = s.charAt(0);
+        int countX = 1, countY = 0;;
         int i = 1;
-        int a = 1, b = 0;
-        while(true) {
+        if(s.length() == 1) return 1;
+        char x = s.charAt(0);
+        int answer = 0;
+        while(i < s.length()) {
+
+            if(countX == countY) {
+                answer ++;
+                x = s.charAt(i);
+                countX = 0;
+                countY = 0;
+            }
+            if(s.charAt(i) == x) {
+                countX ++;
+            }
+            else {
+                countY ++;
+            }
+          
+            i++;
             if(i == s.length()) {
+                answer ++;
                 break;
             }
-            if(a == b) {
-                answer ++;
-                a = 0;
-                b = 0;
-                c = s.charAt(i);
-            }
-            if(c == s.charAt(i)) {
-                a++;
-            } else {
-                b++;
-            }
-            i++;
+            
         }
-        answer ++;
         return answer;
     }
 }
