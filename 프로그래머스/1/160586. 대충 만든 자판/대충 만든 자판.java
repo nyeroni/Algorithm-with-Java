@@ -1,32 +1,25 @@
 import java.util.*;
 class Solution {
     public int[] solution(String[] keymap, String[] targets) {
-        int[] answer = new int[targets.length];
-        Map<String, Integer> map = new HashMap<>();
-        for(int i=0; i<keymap.length; i++) {
-            for(int j=0; j<keymap[i].length(); j++) {
-                String s = String.valueOf(keymap[i].charAt(j));
-                int m = map.getOrDefault(s, -1);
-                int min = j+1;
-                if(m != -1) {
-                    min = Math.min(m, j+1);
-                }
-                map.put(s, min);
+        Map<Character, Integer> map = new HashMap<>();
+        for(String s : keymap) {
+            for(int i = 0; i<s.length(); i++) {
+                if(map.containsKey(s.charAt(i)))
+                    map.put(s.charAt(i), Math.min(i+1, map.get(s.charAt(i))));
+                else map.put(s.charAt(i), i+1);
             }
         }
-        for(int i=0; i<targets.length; i++ ){
-            int result = 0;
-            for(int j=0; j<targets[i].length(); j++) {
-                String s = String.valueOf(targets[i].charAt(j));
-                if(map.containsKey(s)) {
-                    int m = map.getOrDefault(s, -1);
-                    result += m;
-                } else {
-                    result = -1;
-                    break;
-                }
+        int[] answer = new int[targets.length];
+        for(int k=0; k<targets.length; k++) {
+            int sum = 0;
+            boolean flag = false;
+            for(int i=0; i<targets[k].length(); i++) {
+                if(map.containsKey(targets[k].charAt(i)))
+                    sum += map.get(targets[k].charAt(i));
+                else flag = true;
             }
-            answer[i] = result;
+            if(!flag) answer[k] = sum;
+            else answer[k] = -1;
         }
         return answer;
     }
