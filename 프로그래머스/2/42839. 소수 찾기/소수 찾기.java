@@ -1,34 +1,33 @@
 import java.util.*;
 
 class Solution {
-    Set<Integer> set = new HashSet<>();
-    boolean[] visited;
+    static Set<Integer> set = new HashSet<>();
     public int solution(String numbers) {
-        visited = new boolean[numbers.length()];
-        dfs("", numbers);
-        
-        int cnt = 0;
-        for(int num : set) {
-            if(isPrime(num)) cnt ++;
+        String[] nums = numbers.split("");
+        boolean[] visited = new boolean[nums.length];
+        dfs("", nums, visited, 0);
+        int count = 0;
+        for(int i : set) {
+            System.out.println("i : " + i);
+            if(isPrime(i)) count ++;
         }
-        return cnt;
+        return count;
     }
-    private void dfs(String current, String numbers) {
-        if(!current.equals("")) {
-            set.add(Integer.parseInt(current));
-        }
-        for(int i=0; i<numbers.length(); i++) {
+    public void dfs(String now, String[] nums, boolean[] visited, int depth) {
+        if(!now.equals("") && now.charAt(0) != '0') set.add(Integer.parseInt(now));
+        if(depth == nums.length) return;
+        for(int i=0; i<nums.length; i++) {
             if(!visited[i]) {
                 visited[i] = true;
-                dfs(current + numbers.charAt(i), numbers);
+                dfs(now + nums[i], nums, visited, depth + 1);
                 visited[i] = false;
             }
         }
     }
-    private boolean isPrime(long num) {
-        if(num < 2) return false;
-        if(num == 2 || num == 3) return true;
-        for(int i=2; i<=Math.sqrt(num); i++)  {
+    public boolean isPrime(int num) {
+        if(num == 1) return false;
+        else if(num == 2 || num == 3) return true;
+        for(int i=2; i<=Math.sqrt(num); i++) {
             if(num % i == 0) return false;
         }
         return true;
