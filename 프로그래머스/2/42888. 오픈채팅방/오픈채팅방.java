@@ -1,37 +1,42 @@
 import java.util.*;
 
 class Solution {
-    public String[] solution(String[] record) {
-        String[] answer;
-        Map<String, String> userID = new LinkedHashMap<>();
-        List<String[]> order = new ArrayList<>();
-        for(int i=0; i<record.length; i++) {
-            String[] rec = record[i].split(" ");
-            if(rec[0].equals("Enter")) {
-                userID.put(rec[1], rec[2]);
-                order.add(new String[]{rec[1], "Enter"});
-            } else if(rec[0].equals("Leave")) {
-                order.add(new String[]{rec[1], "Leave"});
-            } else if(rec[0].equals("Change")) {
-                if(userID.containsKey(rec[1])) {
-                   userID.replace(rec[1], rec[2]); 
-                }
-            }
+    static class Status {
+        String id;
+        String status;
         
+        Status(String id, String status) {
+            this.id = id;
+            this.status = status;
         }
-        List<String> result = new ArrayList<>();
-        for(String[] s : order) {
-            String str = "";
-            String name = userID.get(s[0]);
-            if(s[1].equals("Enter")) {
-                str = name + "님이 들어왔습니다.";
-            } else if(s[1].equals("Leave")) {
-                str = name + "님이 나갔습니다.";
+    }
+    public String[] solution(String[] record) {
+        Map<String, String> name = new HashMap<>();
+        List<Status> list = new ArrayList<>();
+        for(String r : record) {
+            String[] tmp = r.split(" ");
+            if(tmp[0].equals("Enter")) {
+                name.put(tmp[1], tmp[2]);
+                list.add(new Status(tmp[1], "Enter"));
             }
-            result.add(str);
+            else if(tmp[0].equals("Leave")){
+                list.add(new Status(tmp[1], "Leave"));
+            } else if(tmp[0].equals("Change")) {
+                name.put(tmp[1], tmp[2]);
+            }
         }
-       
-        return result.toArray(new String[0]);
-
+        String[] answer = new String[list.size()];
+        int i=0;
+        for(Status s : list) {
+            if(s.status.equals("Enter")) {
+                answer[i] = name.get(s.id) + "님이 들어왔습니다.";
+            }
+            else if(s.status.equals("Leave")) {
+                answer[i] = name.get(s.id) + "님이 나갔습니다.";
+            }
+            i++;
+        }
+                    
+        return answer;
     }
 }
