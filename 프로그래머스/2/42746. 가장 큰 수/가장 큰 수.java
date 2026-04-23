@@ -3,20 +3,15 @@ import java.util.*;
 class Solution {
     public String solution(int[] numbers) {
         StringBuilder sb = new StringBuilder();
-        
-        String[] str = new String[numbers.length];
-        int j=0;
-        for(int i : numbers) {
-            str[j++] = String.valueOf(i);
+        String[] nums = new String[numbers.length];
+        for(int i=0; i<numbers.length; i++) {
+            nums[i] = "" + numbers[i];
         }
-        
-        Arrays.sort(str, (a, b) -> 
-            (b + a).compareTo(a + b)
-        );
-        for(String s : str) {
+        Arrays.sort(nums, (a, b) -> (b+a).compareTo(a+b));
+        for(String s : nums) {
             sb.append(s);
         }
-        if(sb.toString().charAt(0) == '0') return "0";
+        if(sb.charAt(0) == '0') return "0";
         return sb.toString();
     }
 }
