@@ -1,25 +1,30 @@
 import java.util.*;
+
 class Solution {
     public int[] solution(int[] sequence, int k) {
-        int[] answer = new int[2];
-        int n = sequence.length;
+        int left = 0;
+        int right = 0;
+        int sum = 0;
         
-        int sum  = 0;
-        int a = 0;
-        int minLength = Integer.MAX_VALUE;
-        
-        for(int b=0; b<n; b++) {
-            sum += sequence[b];
-            while(sum > k && a <= b) {
-                sum -= sequence[a];
-                a++;
-            }
-            if(sum == k && b - a < minLength) {
-                minLength = b-a;
-                answer[0] = a;
-                answer[1] = b;
+        int bestStart = 0;
+        int bestEnd = sequence.length-1;
+        int bestLen = sequence.length;
+        while(true) {
+            if(sum < k) {
+                if(right == sequence.length) break;
+                sum += sequence[right++];
+            } else if(sum > k) {
+                sum -= sequence[left++];
+            } else {
+                int len = right - left;
+                if(len < bestLen) {
+                    bestStart = left;
+                    bestEnd = right-1;
+                    bestLen = len;
+                }
+                sum -= sequence[left++];
             }
         }
-        return answer;
+        return new int[]{bestStart, bestEnd};
     }
 }
