@@ -2,35 +2,29 @@ import java.util.*;
 class Solution {
     static int[] dx = {1, -1, 0, 0};
     static int[] dy = {0, 0, 1, -1};
-    int []start = new int[2];
     public int solution(String[] maps) {
-        int answer = 0;
+        
+        int a = count('S', 'L', maps);
+        if(a < 0) return -1;
+        int b = count('L', 'E', maps);
+        if(b < 0) return -1;
+        
+        return a + b;
+        // return 0;
+        
+    }
+    public int count(char start, char end, String[] maps) {
+        Queue<int[]> queue = new LinkedList<>();
         boolean[][] visited = new boolean[maps.length][maps[0].length()];
+        int x = 0, y = 0, dist = 0, nx = 0, ny = 0;
         for(int i=0; i<maps.length; i++) {
-            for(int j=0; j<maps[0].length(); j++) {
-                if(maps[i].charAt(j) == 'S') {
-                    start[0] = i;
-                    start[1] = j;
+            for(int j=0; j<maps[i].length(); j++) {
+                if(maps[i].charAt(j) == start) {
+                    x = i;
+                    y = j;
                 }
             }
         }
-        int a, b;
-        a = bfs(start[0], start[1], 'L', maps, visited, 0);
-        if(a == -1) return -1;
-        // System.out.println("L : " + a);
-        // System.out.println("start[0] : " + start[0] + ", start[1] : " + start[1]);
-        visited = new boolean[maps.length][maps[0].length()];
-
-        b = bfs(start[0], start[1], 'E', maps, visited, a);
-        
-        // System.out.println("E : " + b);
-        // System.out.println("start[0] : " + start[0] + ", start[1] : " + start[1]);
-
-        if(b == -1) return -1;
-        return b;
-    }
-    private int bfs(int x, int y, Character c, String[] maps, boolean[][] visited, int dist) {
-        Queue<int[]> queue = new LinkedList<>();  
         queue.offer(new int[]{x, y, dist});
         visited[x][y] = true;
         while(!queue.isEmpty()) {
@@ -38,26 +32,21 @@ class Solution {
             x = now[0];
             y = now[1];
             dist = now[2];
+            // System.out.println("x : " + x + ", y : " + y + ", dist : " + dist); 
+            if(maps[x].charAt(y) == end) return dist;
             for(int i=0; i<4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
-                if(nx < 0 || ny < 0 || nx >= maps.length || ny >= maps[0].length()) {
+                nx = x + dx[i];
+                ny = y + dy[i];
+                if(nx < 0 || nx >= maps.length || ny < 0 || ny >= maps[0].length()) {
                     continue;
                 }
-                if(!visited[nx][ny] && maps[nx].charAt(ny) == c) {
-                    start[0] = nx;
-                    start[1] = ny;
-                    // System.out.println("start[0] : " + start[0] + ", start[1] : " + start[1]);
-                    return dist + 1;
-                }
-                if(!visited[nx][ny] && maps[nx].charAt(ny) != 'X') {
-                    visited[nx][ny] = true;
-                    // System.out.println("nx : " + nx + ", ny : " + ny);
-                    // System.out.println("dist : " + (dist+1));
-                    queue.offer(new int[]{nx, ny, dist +1});
-                }
+                if(visited[nx][ny]) continue;
+                if(maps[nx].charAt(ny) == 'X') continue;
+                visited[nx][ny] = true;
+                queue.offer(new int[]{nx, ny, dist + 1});
             }
         }
+        
         return -1;
     }
 }
