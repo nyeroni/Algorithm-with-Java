@@ -2,46 +2,69 @@ import java.util.*;
 
 class Solution {
     public String solution(String p) {
-        if(p.isEmpty()) return "";
-        
-        int idx = splitIndex(p);
-        String u = p.substring(0, idx);
-        String v = p.substring(idx);
-        
-        if(isCorrect(u)) {
-            return u + solution(v);
-        } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("(");
-            sb.append(solution(v));
-            sb.append(")");
-            sb.append(reverse(u.substring(1, u.length() - 1)));
-            return sb.toString();
-        }
+        if(p.length() == 0) return "";
+        if(check(p)) return p;
+        return calculate(p);
     }
-    private int splitIndex(String s) {
-        int balance = 0;
+    public String calculate(String s) {
+        // System.out.println("s : " + s);
+        if(s.equals("")) return "";
+        if(check(s)) return s;
+        int a = 0, b = 0;
+        String u = "", v = "";
         for(int i=0; i<s.length(); i++) {
-            if(s.charAt(i) == '(') balance ++;
-            else balance --;
-            if(balance == 0) return i+1;
+            char c = s.charAt(i);
+            if(c == '(') a++;
+            if(c == ')') b++;
+            if(a == b) {
+                u = s.substring(0, i+1);
+                v = s.substring(i+1, s.length());
+                // System.out.println("u : " + u + ", v : " + v);
+                if(check(u)) {
+                    return u + calculate(v);
+                } else {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("(");
+                    sb.append(calculate(v));
+                    sb.append(")");
+                    //(())
+                    // System.out.println("-=-" + sb.toString());
+                    if(u.length() <= 2) u = "";
+                    else u = u.substring(1, u.length()-1);
+                    u = change(u);
+                    // System.out.println("u : " + u);
+                    // ()
+                    sb.append(u); 
+                    // System.out.println(">< : " + sb.toString());
+                    return sb.toString();
+                }
+            }
         }
-        return s.length();
+        return "";
     }
-    private boolean isCorrect(String s) {
-        int cnt = 0;
-        for(char c : s.toCharArray()) {
-            if(c == '(') cnt ++;
-            else cnt --;
-            if(cnt < 0) return false;
-        }
-        return cnt == 0;
-    }
-    private String reverse(String s) {
+    public String change(String s) {
         StringBuilder sb = new StringBuilder();
         for(char c : s.toCharArray()) {
-            sb.append(c == '(' ? ')': '(');
+            if(c == '(') {
+                sb.append(")");   
+            } else if(c==')')
+                sb.append("(");
         }
         return sb.toString();
+    }
+    public boolean check(String s) {
+        Stack<Character> stack = new Stack<>();
+        for(char c : s.toCharArray()) {
+            if(c == ')') {
+                if(!stack.isEmpty() && stack.peek() == '(') {
+                    stack.pop();
+                } else return false;
+            }
+            else if(c == '(') {
+                stack.push('(');
+            }
+        }
+        if(stack.isEmpty()) return true;
+        return false;
     }
 }
