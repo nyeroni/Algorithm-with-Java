@@ -3,51 +3,53 @@ import java.util.*;
 class Solution {
     static int[] dx = {1, -1, 0, 0};
     static int[] dy = {0, 0, 1, -1};
-    static boolean[][] visited;
     public int[] solution(String[] maps) {
-        visited = new boolean[maps.length][maps[0].length()];
-        int cnt = 0;
-        List<Integer> list = new ArrayList<>();
-        for(int i=0; i<maps.length; i++) {
-            for(int j=0; j<maps[i].length(); j++) {
+        int n = maps.length;
+        int m = maps[0].length();
+        boolean[][] visited = new boolean[n][m];
+        List<Integer> answer = new ArrayList<>();
+        
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
                 if(!visited[i][j] && maps[i].charAt(j) != 'X') {
-                    cnt = dfs(i, j, maps);
-                    // System.out.println("cnt : " + cnt);
-                    list.add(cnt);
-                    cnt = 0;
+                    int sum = bfs(i, j, maps, visited);
+                    answer.add(sum);
                 }
             }
         }
-        if(list.size() == 0) return new int[]{-1};
-        int[] answer = list.stream().mapToInt(i->i).toArray();
-        Arrays.sort(answer);
-        return answer;
+        if(answer.size() == 0) return new int[]{-1};
+        Collections.sort(answer);
+        return answer.stream().mapToInt(i->i).toArray();
     }
-    private int dfs(int x, int y, String[] maps) {
+    public int bfs(int x, int y, String[] maps, boolean[][] visited) {
+        int n = maps.length;
+        int m = maps[0].length();
+        
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[]{x, y});
         visited[x][y] = true;
-        // System.out.println("start x : " + x + ", y : "+ y);
-        int sum=Integer.parseInt(String.valueOf(maps[x].charAt(y)));
+        
+        int sum = 0;
         while(!queue.isEmpty()) {
             int[] now = queue.poll();
-            int nowx = now[0];
-            int nowy = now[1];
-            // // System.out.println("x : " + x + ", y : " + y);
-            // System.out.println("sum : " + sum );
+            int cx = now[0];
+            int cy = now[1];
+            
+            sum += maps[cx].charAt(cy) - '0';
+            
             for(int i=0; i<4; i++) {
-                int nx = nowx+dx[i];
-                int ny = nowy+dy[i];
-                
-                if(nx<0 || ny < 0 || nx >= maps.length || ny >= maps[0].length()) {
+                int nx = cx + dx[i];
+                int ny = cy + dy[i];
+                if(nx < 0 || nx >= n || ny < 0 || ny >= m) {
                     continue;
                 }
-                if(visited[nx][ny] || maps[nx].charAt(ny) == 'X') continue;
+                if(visited[nx][ny]) continue;
+                if(maps[nx].charAt(ny) == 'X') continue;
+                
                 visited[nx][ny] = true;
                 queue.offer(new int[]{nx, ny});
-                sum += Integer.parseInt(String.valueOf(maps[nx].charAt(ny)));
-
             }
+            
         }
         return sum;
     }
