@@ -2,33 +2,29 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] schedules, int[][] timelogs, int startday) {
-        int answer = schedules.length;
-        int max = 0;
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int i=0; i<timelogs.length; i++) {
-            int startTime = schedules[i];
-            int endTime = schedules[i];
-            int count = 0;
-            if((schedules[i] + 10)%100 >= 60) {
-                endTime += 50; 
+        int answer = 0;
+        for(int k=0; k<schedules.length; k++) {
+            int cnt = 0;
+            schedules[k] = schedules[k] + 10;
+            if(schedules[k] % 100 > 59) {
+                schedules[k] = (schedules[k] / 100 + 1) * 100 + (schedules[k] % 100) - 60;
             }
-            else endTime += 10;
-            System.out.println("startTime : "+ startTime);
-            System.out.println("endTime : "+ endTime);
-            for(int j=0; j<7; j++) {
-                // System.out.println("timelogs[i][j] : " + timelogs[i][j]);
-                // System.out.println("(j+startday) % 7 : " + (j+startday) % 7);
-                if((j+startday) % 7 == 6 || (j+startday) % 7 == 0) {
+            System.out.println("schedules[k] : " + schedules[k]);
+            for(int i=0; i<timelogs[k].length; i++) {
+                // System.out.println("(i + timelogs) % 7 : " + ((i + startday) % 7));
+                if( (i + startday) % 7 == 0 ||  (i + startday) % 7 == 6) {
                     continue;
                 }
-                if(timelogs[i][j] <= endTime) {
-                    // System.out.println("PASS");
-                    count ++;
+                
+                
+                // System.out.println("schedules[k] : " + schedules[k] +", schedules[k] + 10 : " + (schedules[k] + 10) + ", timelogs[k][i] : "+ timelogs[k][i]);
+                if(timelogs[k][i] <= schedules[k]) {
+                    cnt ++;
                 }
             }
-            if(count != 5) answer--;
-            
-        }        
+            // System.out.println("cnt : " + cnt);
+            if(cnt == 5) answer ++;
+        }
         return answer;
     }
 }
