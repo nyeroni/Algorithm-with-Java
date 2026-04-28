@@ -1,51 +1,64 @@
 class Solution {
     public int[] solution(String[] park, String[] routes) {
         int[] answer = new int[2];
-        int x = 0;
-        int y = 0;
+        int startX = -1, startY = -1;
         for(int i=0; i<park.length; i++) {
-            for(int j=0; j<park[i].length(); j++) {
+            for(int j=0; j<park[0].length(); j++) {
                 if(park[i].charAt(j) == 'S') {
-                    x = i;
-                    y = j;
+                    startX = i;
+                    startY = j;
+                    break;
                 }
             }
+            if(startX != -1 && startY != -1) break;
         }
-
-        int[] dx = {1, -1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-        String dir = "SNWE";
-        
+        int nx = startX, ny = startY;
         for(String route : routes) {
-            String []tmp = route.split(" ");
-            char direction = tmp[0].charAt(0);
-            int move = Integer.parseInt(tmp[1]);
+            String[] tmp = route.split(" ");
+            String op = tmp[0];
+            int n = Integer.parseInt(tmp[1]);
             
-            int nx = x;
-            int ny = y;
-            boolean valid = true;
-            
-            int idx = dir.indexOf(direction);
-            for(int j=0; j<move; j++) {
-                nx += dx[idx];
-                ny += dy[idx];
-                
-                if(nx < 0 || ny < 0 || nx >= park.length || ny >= park[0].length()) {
-                    valid = false;
-                    break;
+            if(op.equals("E")) {
+                ny = startY + n; 
+                // System.out.println("ny : " + ny);
+                for(int i=startY+1; i<=ny; i++) {
+                    // System.out.println("i : " + i + ", park[nx].length() : " + park[nx].length());
+                    if(i < 0 || i >= park[nx].length() || park[nx].charAt(i) == 'X') {
+                        ny = startY;
+                        break;
+                    }
                 }
-                if(park[nx].charAt(ny) == 'X') {
-                    valid = false;
-                    break;
+                // System.out.println("ny : " + ny);
+            
+            } else if(op.equals("W")) {
+                ny = startY - n; 
+                for(int i=startY-1; i>=ny; i--) {
+                    if(i < 0 || i >= park[nx].length() || park[nx].charAt(i) == 'X') {
+                        ny = startY;
+                        break;
+                    }
+                }
+            } else if(op.equals("S")) {
+                nx = startX + n;
+                for(int i=startX+1; i<=nx; i++) {
+                    if(i < 0 || i >= park.length || park[i].charAt(ny) == 'X') {
+                        nx = startX;
+                        break;
+                    }
+                }
+            } else if(op.equals("N")) {
+                nx = startX - n;
+                for(int i=startX-1; i>=nx; i--) {
+                    if(i < 0 || i >= park.length || park[i].charAt(ny) == 'X') {
+                        nx = startX;
+                        break;
+                    }
                 }
             }
-            if(valid) {
-                x = nx;
-                y = ny;
-            } 
+            startX = nx;
+            startY = ny;
+            
         }
-        answer[0] = x;
-        answer[1] = y;
-        return answer;
+        return new int[]{startX, startY};
     }
 }
