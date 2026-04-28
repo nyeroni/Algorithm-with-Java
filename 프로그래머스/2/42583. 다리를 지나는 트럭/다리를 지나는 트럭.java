@@ -11,7 +11,6 @@ class Solution {
         while(idx < truck_weights.length) {
             time ++;
             sum -= queue.poll();
-            
             if(sum + truck_weights[idx] <= weight) {
                 sum += truck_weights[idx];
                 queue.offer(truck_weights[idx]);
