@@ -1,30 +1,32 @@
 import java.util.*;
 class Solution {
     public int solution(int[] priorities, int location) {
+        Queue<int[]> queue = new LinkedList<>();
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-        Queue<Integer> queue = new LinkedList<>();
-        int[] answer = new int[priorities.length];
-        for(int i=0; i<priorities.length; i++) {
-            pq.offer(priorities[i]);
-            queue.offer(i);
+        
+        for(int p : priorities) {
+            pq.offer(p);
         }
-        int k=0;
-        while(!pq.isEmpty()) {
-            int n = queue.poll();
-            System.out.println("n : " + n + ", pq.peek() : " + pq.peek());
-            if(pq.peek() > priorities[n]) {
-                System.out.println("hi");
-                queue.offer(n);
-            } else {
+        for(int i=0; i< priorities.length; i++) {
+            queue.offer(new int[]{i, priorities[i]});
+        }
+        int cnt = 0;
+       // [2, 3, 0, 1]
+        int[] answer = new int[priorities.length];
+        while(!queue.isEmpty()) {
+            int[] now = queue.poll();
+            // System.out.println("now[0] : " + now[0] + ", now[1] : " + now[1] + ", peek() : " + pq.peek() + ", cnt : " + cnt);
+            if(pq.peek() > now[1]) {
+                queue.offer(now);
+            } else if(pq.peek() == now[1]) {
+                answer[cnt] = now[0];
                 pq.poll();
-                answer[k++] = n;
+                cnt ++;
             }
         }
-        int result = 0;
         for(int i=0; i<answer.length; i++) {
-            System.out.println("answer[i] : " + answer[i]);
-            if(answer[i] == location) result = i + 1;
+            if(location == answer[i]) return i+1;
         }
-        return result;
+        return -1;
     }
 }
