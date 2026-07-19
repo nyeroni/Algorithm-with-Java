@@ -1,12 +1,14 @@
 class Solution {
     boolean solution(String s) {
-        s = s.toLowerCase();
-        int p = 0, y = 0;
+        int a = 0, b = 0;
         for(char c : s.toCharArray()) {
-            if(c == 'p') p++;
-            else if(c == 'y') y++;
+            if(c == 'p' || c == 'P') {
+                a++;
+            } else if(c == 'y' || c == 'Y') {
+                b++;
+            }
         }
-        if(p==y) return true;
+        if(a == b) return true;
         return false;
     }
 }
