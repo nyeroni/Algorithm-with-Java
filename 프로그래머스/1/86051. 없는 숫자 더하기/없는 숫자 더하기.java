@@ -1,16 +1,16 @@
 import java.util.*;
 class Solution {
     public int solution(int[] numbers) {
-        int sum = 0;
-        List<Integer> list = new ArrayList<>();
-        for(int num : numbers) {
-            list.add(num);
+        boolean[] flag = new boolean[10];
+        for(int i=0; i<numbers.length; i++) {
+            flag[numbers[i]] = true;
         }
-        for(int i=0; i<=9; i++) {
-            if(!list.contains(i)) {
-                sum += i;
+        int answer = 0;
+        for(int i=0; i<flag.length; i++) {
+            if(!flag[i]) {
+                answer += i;
             }
         }
-        return sum;
+        return answer;
     }
 }
