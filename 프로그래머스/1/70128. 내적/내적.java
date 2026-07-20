@@ -1,9 +1,9 @@
 class Solution {
     public int solution(int[] a, int[] b) {
-        int sum = 0;
+        int answer = 0;
         for(int i=0; i<a.length; i++) {
-            sum += (a[i] * b[i]);
+            answer += a[i] * b[i];
         }
-        return sum;
+        return answer;
     }
 }
