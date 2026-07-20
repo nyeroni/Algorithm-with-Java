@@ -4,7 +4,9 @@ class Solution {
         for(int i=0; i<count; i++) {
             sum += price * (i+1);
         }
-        
-        return sum - money > 0 ? sum - money : 0;
+        if(sum <= money) {
+            return 0;
+        } 
+        return sum-money;
     }
 }
