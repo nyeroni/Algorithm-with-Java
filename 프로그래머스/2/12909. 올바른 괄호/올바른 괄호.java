@@ -2,15 +2,15 @@ import java.util.Stack;
 
 class Solution {
     public boolean solution(String s) {
-        Stack<String> stack = new Stack<>();
-        for(int i=0; i<s.length(); i++) {
-            if(s.charAt(i) == ')') {
+        Stack<Character> stack = new Stack<>();
+        for(char c : s.toCharArray()) {
+            if(c == '(') {
+                stack.push('(');
+            } else if(c == ')') {
                 if(stack.isEmpty()) return false;
-                if(stack.peek().equals("(")) {
+                if(stack.peek() == '(') {
                     stack.pop();
                 }
-            } else if(s.charAt(i) == '(') {
-                stack.push("(");
             }
         }
         if(stack.isEmpty()) return true;
